@@ -17,7 +17,7 @@ public class HoursAlphaApiSecurity extends WebSecurityConfigurerAdapter {
                 .and()
                 .csrf().disable()
                 .authorizeRequests()
-                .mvcMatchers("/v1/hoursAplha/noAuth/**").permitAll()
+                .mvcMatchers("noAuth/**").permitAll()
                 .anyRequest().fullyAuthenticated()
                 .and()
                 .httpBasic();
