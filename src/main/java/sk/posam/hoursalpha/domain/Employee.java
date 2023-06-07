@@ -31,7 +31,16 @@ public class Employee {
             nullable = false)
     private String phoneNumber;
 
+    public Employee(String firstName, String lastName, String email, String password, String phoneNumber) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.phoneNumber = phoneNumber;
+    }
 
+    public Employee() {
+    }
 
     public String getFirstName() {
         return firstName;
