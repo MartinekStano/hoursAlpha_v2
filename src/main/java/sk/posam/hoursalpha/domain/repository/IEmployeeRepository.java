@@ -1,4 +1,4 @@
-package sk.posam.hoursalpha.domain.repositories;
+package sk.posam.hoursalpha.domain.repository;
 
 import sk.posam.hoursalpha.domain.Employee;
 
