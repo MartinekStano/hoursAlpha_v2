@@ -18,4 +18,9 @@ public class EmployeeRepositoryImpl implements IEmployeeRepository {
     public Optional<Employee> findEmployeeByEmail(String email) {
         return repository.findEmployeeByEmail(email);
     }
+
+    @Override
+    public void saveNewEmployee(Employee employee) {
+        repository.save(employee);
+    }
 }

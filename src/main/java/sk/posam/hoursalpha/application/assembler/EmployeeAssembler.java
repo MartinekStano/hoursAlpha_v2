@@ -11,7 +11,6 @@ public class EmployeeAssembler {
         dto.setLastName(employee.getLastName());
         dto.setEmail(employee.getEmail());
         dto.setPhoneNumber(employee.getPhoneNumber());
-
         return dto;
     }
 
@@ -20,6 +19,7 @@ public class EmployeeAssembler {
              dto.getFirstName(),
              dto.getLastName(),
              dto.getEmail(),
+             dto.getPassword(),
              dto.getPhoneNumber()
         );
     }
