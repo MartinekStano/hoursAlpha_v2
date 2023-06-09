@@ -6,6 +6,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import sk.posam.hoursalpha.controller.exception.NotActivatedAccountViaEmailException;
 import sk.posam.hoursalpha.domain.Employee;
 import sk.posam.hoursalpha.domain.repository.IEmployeeRepository;
 
@@ -21,11 +22,17 @@ public class EmployeeDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Optional<Employee> employee = repository.findEmployeeByEmail(email);
 
+
+
         if(employee.isPresent()){
+
+            if(!employee.get().isStatusOfProfile()) //TO DO
+                throw new NotActivatedAccountViaEmailException();
+
             return new org.springframework.security.core.userdetails.User(
                     employee.get().getEmail(),
                     employee.get().getPassword(),
-                    true,
+                    employee.get().isStatusOfProfile(),
                     true,
                     true,
                     true,

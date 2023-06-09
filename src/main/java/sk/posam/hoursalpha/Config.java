@@ -18,7 +18,8 @@ public class Config {
                     "Stano",
                     "mato@gmail.com",
                     password,
-                    "0911455600");
+                    "0911455600",
+                    true);
 
             repo.save(employee);
 

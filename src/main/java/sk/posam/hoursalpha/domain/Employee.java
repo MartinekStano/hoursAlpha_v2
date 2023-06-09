@@ -31,12 +31,16 @@ public class Employee {
             nullable = false)
     private String phoneNumber;
 
-    public Employee(String firstName, String lastName, String email, String password, String phoneNumber) {
+    @Column(name = "status")
+    private boolean statusOfProfile;
+
+    public Employee(String firstName, String lastName, String email, String password, String phoneNumber, boolean statusOfProfile) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
         this.phoneNumber = phoneNumber;
+        this.statusOfProfile = statusOfProfile;
     }
 
     public Employee() {
@@ -80,5 +84,13 @@ public class Employee {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public boolean isStatusOfProfile() {
+        return statusOfProfile;
+    }
+
+    public void setStatusOfProfile(boolean statusOfProfile) {
+        this.statusOfProfile = statusOfProfile;
     }
 }

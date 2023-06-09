@@ -20,7 +20,8 @@ public class EmployeeAssembler {
              dto.getLastName(),
              dto.getEmail(),
              dto.getPassword(),
-             dto.getPhoneNumber()
+             dto.getPhoneNumber(),
+             dto.isStatusOfProfile()
         );
     }
 }

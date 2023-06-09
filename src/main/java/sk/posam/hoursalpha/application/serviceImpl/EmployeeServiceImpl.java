@@ -28,7 +28,8 @@ public class EmployeeServiceImpl implements IEmployeeService {
                     dto.getLastName(),
                     dto.getEmail(),
                     encoder.encode(dto.getPassword()),
-                    dto.getPhoneNumber()
+                    dto.getPhoneNumber(),
+                    false
             ));
         }
 

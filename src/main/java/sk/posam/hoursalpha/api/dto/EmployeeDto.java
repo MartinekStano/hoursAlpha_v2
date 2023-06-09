@@ -8,6 +8,8 @@ public class EmployeeDto {
     private String password;
     private String phoneNumber;
 
+    private boolean statusOfProfile;
+
     public String getFirstName() {
         return firstName;
     }
@@ -46,5 +48,13 @@ public class EmployeeDto {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public boolean isStatusOfProfile() {
+        return statusOfProfile;
+    }
+
+    public void setStatusOfProfile(boolean statusOfProfile) {
+        this.statusOfProfile = statusOfProfile;
     }
 }
