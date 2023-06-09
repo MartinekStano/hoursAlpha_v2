@@ -7,12 +7,7 @@ import sk.posam.hoursalpha.api.IHoursAlphaAPI;
 public class HoursAlphaApiController implements IHoursAlphaAPI {
 
     @Override
-    public String noAuthTest() {
-        return "It's work with no auth!";
-    }
-
-    @Override
-    public String withAuthTest() {
-        return "It's work with auth!";
+    public Long login() {
+        return 1L;
     }
 }
