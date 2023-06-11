@@ -21,4 +21,9 @@ public class HoursAlphaApiController implements IHoursAlphaAPI {
     public void register(EmployeeDto dto) {
         iHoursAlphaApiService.register(dto);
     }
+
+    @Override
+    public void activationEmailAddress(String token) {
+        iHoursAlphaApiService.activationEmailAddress(token);
+    }
 }

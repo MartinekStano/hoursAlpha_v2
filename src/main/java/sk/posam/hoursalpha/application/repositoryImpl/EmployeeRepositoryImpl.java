@@ -20,7 +20,7 @@ public class EmployeeRepositoryImpl implements IEmployeeRepository {
     }
 
     @Override
-    public void saveNewEmployee(Employee employee) {
-        repository.save(employee);
+    public Optional<Employee> saveNewEmployee(Employee employee) {
+        return Optional.of(repository.save(employee));
     }
 }

@@ -4,4 +4,6 @@ import sk.posam.hoursalpha.api.dto.EmployeeDto;
 
 public interface IEmployeeService {
     void register(EmployeeDto dto);
+
+    void activationEmailAddress(String tokeb);
 }

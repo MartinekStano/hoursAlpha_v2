@@ -17,6 +17,8 @@ public class EmailServiceImpl implements IEmailService {
 
     @Autowired
     VerificationTokenService verificationTokenService;
+
+    @Autowired
     JavaMailSender javaMailSender;
 
     @Override

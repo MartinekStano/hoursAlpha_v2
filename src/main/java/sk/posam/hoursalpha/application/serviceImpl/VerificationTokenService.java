@@ -42,6 +42,7 @@ public class VerificationTokenService implements IVerificationTokenService {
     public void save(Employee employee, String token) {
         VerificationToken verificationToken = new VerificationToken(token, employee);
         verificationToken.setExpiryDate(calculateExpiryDate(24*60));
+        iTokenRepository.saveNewVerification(verificationToken);
     }
 
     @Override

@@ -6,5 +6,5 @@ import java.util.Optional;
 
 public interface IEmployeeRepository {
     Optional<Employee> findEmployeeByEmail(String email);
-    void saveNewEmployee(Employee employee);
+    Optional<Employee> saveNewEmployee(Employee employee);
 }

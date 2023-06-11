@@ -14,4 +14,9 @@ public class HoursAlphaApiServiceImpl implements IHoursAlphaApiService{
     public void register(EmployeeDto dto) {
         employeeService.register(dto);
     }
+
+    @Override
+    public void activationEmailAddress(String token) {
+        employeeService.activationEmailAddress(token);
+    }
 }
