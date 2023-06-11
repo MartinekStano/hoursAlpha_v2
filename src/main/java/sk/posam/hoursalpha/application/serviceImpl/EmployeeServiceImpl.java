@@ -3,14 +3,18 @@ package sk.posam.hoursalpha.application.serviceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import sk.posam.hoursalpha.api.dto.EmployeeDto;
 import sk.posam.hoursalpha.controller.exception.EmailIsUnavailableException;
+import sk.posam.hoursalpha.controller.exception.TokenExpiredException;
 import sk.posam.hoursalpha.domain.Employee;
+import sk.posam.hoursalpha.domain.VerificationToken;
 import sk.posam.hoursalpha.domain.repository.IEmployeeRepository;
 import sk.posam.hoursalpha.domain.service.IEmailService;
 import sk.posam.hoursalpha.domain.service.IEmployeeService;
 import sk.posam.hoursalpha.domain.service.IVerificationTokenService;
 
+import java.sql.Timestamp;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -64,7 +68,21 @@ public class EmployeeServiceImpl implements IEmployeeService {
     }
 
     @Override
-    public void activationEmailAddress(String tokeb) {
+    @Transactional
+    public void activationEmailAddress(String token) {
+        VerificationToken verificationToken = iVerificationTokenService.findByToken(token);
 
+        Employee employee = verificationToken.getEmployee();
+
+        if(!employee.isStatusOfProfile()) {
+            Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
+
+            if(verificationToken.getExpiryDate().before(currentTimestamp)){
+                throw new TokenExpiredException();
+            }else{
+                employee.setStatusOfProfile(true);
+                iVerificationTokenService.deleteToken(token);
+            }
+        }
     }
 }
