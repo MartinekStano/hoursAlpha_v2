@@ -5,12 +5,12 @@ import org.springframework.stereotype.Repository;
 import sk.posam.hoursalpha.application.repositoryCrud.ITokenJpaRepository;
 import sk.posam.hoursalpha.domain.Employee;
 import sk.posam.hoursalpha.domain.VerificationToken;
-import sk.posam.hoursalpha.domain.repository.ITokenRepository;
+import sk.posam.hoursalpha.domain.repository.IVerificationTokenRepository;
 
 import java.util.Optional;
 
 @Repository
-public class TokenRepositoryImpl implements ITokenRepository {
+public class TokenVerificationRepositoryImpl implements IVerificationTokenRepository {
 
     @Autowired
     ITokenJpaRepository iTokenJpaRepository;

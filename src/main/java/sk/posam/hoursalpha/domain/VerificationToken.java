@@ -28,7 +28,24 @@ public class VerificationToken {
     public VerificationToken() {
     }
 
-    public VerificationToken(String token) {
+    public VerificationToken(String token, Employee employee) {
         this.token = token;
+        this.employee = employee;
+    }
+
+    public Timestamp getExpiryDate() {
+        return expiryDate;
+    }
+
+    public void setExpiryDate(Timestamp expiryDate) {
+        this.expiryDate = expiryDate;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public Employee getEmployee() {
+        return employee;
     }
 }

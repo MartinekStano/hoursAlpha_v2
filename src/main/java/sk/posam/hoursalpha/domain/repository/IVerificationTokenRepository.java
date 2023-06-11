@@ -5,7 +5,7 @@ import sk.posam.hoursalpha.domain.VerificationToken;
 
 import java.util.Optional;
 
-public interface ITokenRepository {
+public interface IVerificationTokenRepository {
     Optional<VerificationToken> findByToken(String token);
     Optional<VerificationToken> findByEmployee(Employee employee);
 
