@@ -126,4 +126,9 @@ public class EmployeeServiceImpl implements IEmployeeService {
     public void updateEmployeeProfile(EmployeeDto employeeDto, String email) {
 
     }
+
+    @Override
+    public void resetPasswordViaEmail(String password, String token) {
+
+    }
 }

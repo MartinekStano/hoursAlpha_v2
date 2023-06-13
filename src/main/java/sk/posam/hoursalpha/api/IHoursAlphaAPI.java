@@ -24,6 +24,9 @@ public interface IHoursAlphaAPI {
     @PostMapping("/noAuth/sendResetPasswordEmail")
     void sendResetPasswordEmail(@RequestParam String email) throws MessagingException;
 
+    @PutMapping("/noAuth/resetPassword/{token}")
+    void resetPasswordViaEmail(@RequestParam String password, @PathVariable String token);
+
     @PostMapping("/Auth/resetPassword")
     void resetPassword(@RequestParam String password, Authentication authentication);
 

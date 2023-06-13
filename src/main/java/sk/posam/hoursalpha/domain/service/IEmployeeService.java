@@ -11,6 +11,7 @@ public interface IEmployeeService {
 
     void resendVerificationEmail(String email) throws MessagingException;
     void sendResetPassword(String email) throws MessagingException;
+    void resetPasswordViaEmail(String password, String token);
     void resetPassword(String password, String email);
 
     void updateEmployeeProfile(EmployeeDto employeeDto, String email);

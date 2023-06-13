@@ -53,4 +53,9 @@ public class HoursAlphaApiController implements IHoursAlphaAPI {
         UserDetails user = (UserDetails) authentication.getPrincipal();
         iHoursAlphaApiService.updateEmployeeProfile(employeeDto, user.getUsername());
     }
+
+    @Override
+    public void resetPasswordViaEmail(String password, String token) {
+        iHoursAlphaApiService.resetPasswordViaEmail(password, token);
+    }
 }
