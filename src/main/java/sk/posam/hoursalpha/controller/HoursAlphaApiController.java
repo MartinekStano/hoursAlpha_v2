@@ -38,7 +38,7 @@ public class HoursAlphaApiController implements IHoursAlphaAPI {
     }
 
     @Override
-    public void sendResetPasswordEmail(String email) {
+    public void sendResetPasswordEmail(String email) throws MessagingException {
         iHoursAlphaApiService.sendResetPassword(email);
     }
 

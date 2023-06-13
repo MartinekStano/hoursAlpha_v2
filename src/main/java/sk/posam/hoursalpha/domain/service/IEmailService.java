@@ -7,4 +7,6 @@ import java.util.Optional;
 
 public interface IEmailService {
     void sendVerificationEmailWithToken(Employee employee) throws MessagingException;
+
+    void sendResetPasswordViaEmail(Employee employee) throws MessagingException;
 }

@@ -103,8 +103,18 @@ public class EmployeeServiceImpl implements IEmployeeService {
     }
 
     @Override
-    public void sendResetPassword(String email) {
+    public void sendResetPassword(String email) throws MessagingException {
+        Optional<Employee> employee = employeeRepository.findEmployeeByEmail(email);
 
+        if(employee.isPresent()) {
+            iVerificationTokenService.findByEmployee(employee.get()).ifPresent(token -> iVerificationTokenService.deleteToken(token.getToken()));
+
+            iVerificationTokenService.save(employee.get(), UUID.randomUUID().toString());
+
+            emailService.sendResetPasswordViaEmail(employee.get());
+        }else {
+            throw new UsernameNotFoundException("User was not found!");
+        }
     }
 
     @Override

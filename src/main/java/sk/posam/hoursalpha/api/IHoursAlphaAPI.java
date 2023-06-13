@@ -22,7 +22,7 @@ public interface IHoursAlphaAPI {
     void resendVerificationEmail(@RequestParam String email) throws MessagingException;
 
     @PostMapping("/noAuth/sendResetPasswordEmail")
-    void sendResetPasswordEmail(@RequestParam String email);
+    void sendResetPasswordEmail(@RequestParam String email) throws MessagingException;
 
     @PostMapping("/Auth/resetPassword")
     void resetPassword(@RequestParam String password, Authentication authentication);

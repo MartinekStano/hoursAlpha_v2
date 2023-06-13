@@ -9,7 +9,7 @@ public interface IHoursAlphaApiService {
 
     void activationEmailAddress(String token);
     void resendVerificationEmail(String email) throws MessagingException;
-    void sendResetPassword(String email);
+    void sendResetPassword(String email) throws MessagingException;
     void resetPassword(String password, String email);
     void updateEmployeeProfile(EmployeeDto employeeDto, String email);
 }
