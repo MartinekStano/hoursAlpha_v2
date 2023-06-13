@@ -5,6 +5,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import sk.posam.hoursalpha.api.dto.EmployeeDto;
 
+import javax.mail.MessagingException;
+
 public interface IHoursAlphaAPI {
 
     @PostMapping("/Auth/login")
@@ -17,7 +19,7 @@ public interface IHoursAlphaAPI {
     void activationEmailAddress(@PathVariable String token);
 
     @PostMapping("/noAuth/resendVerificationEmail")
-    void resendVerificationEmail(@RequestParam String email);
+    void resendVerificationEmail(@RequestParam String email) throws MessagingException;
 
     @PostMapping("/noAuth/sendResetPasswordEmail")
     void sendResetPasswordEmail(@RequestParam String email);
@@ -26,5 +28,5 @@ public interface IHoursAlphaAPI {
     void resetPassword(@RequestParam String password, Authentication authentication);
 
     @PutMapping("/Auth/updateEmployeeProfile")
-    void updateEmployeeProfile(EmployeeDto employeeDto);
+    void updateEmployeeProfile(EmployeeDto employeeDto, Authentication authentication);
 }

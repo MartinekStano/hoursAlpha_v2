@@ -29,13 +29,9 @@ public class VerificationTokenService implements IVerificationTokenService {
     }
 
     @Override
-    public VerificationToken findByEmployee(Employee employee) {
-        Optional<VerificationToken> verificationToken = iTokenRepository.findByEmployee(employee);
-        if(verificationToken.isPresent()){
-            return verificationToken.get();
-        }else{
-            throw new VerificationTokenNotFoundException();
-        }
+    public Optional<VerificationToken> findByEmployee(Employee employee) {
+        return iTokenRepository.findByEmployee(employee);
+
     }
 
     @Override

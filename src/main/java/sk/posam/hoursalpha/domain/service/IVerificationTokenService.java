@@ -4,11 +4,12 @@ import sk.posam.hoursalpha.domain.Employee;
 import sk.posam.hoursalpha.domain.VerificationToken;
 
 import java.sql.Timestamp;
+import java.util.Optional;
 
 public interface IVerificationTokenService {
     VerificationToken findByToken(String token);
 
-    VerificationToken findByEmployee(Employee employee);
+    Optional<VerificationToken> findByEmployee(Employee employee);
 
     void save(Employee employee, String token);
 

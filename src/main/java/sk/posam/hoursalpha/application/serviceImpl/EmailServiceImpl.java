@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
+import sk.posam.hoursalpha.controller.exception.VerificationTokenNotFoundException;
 import sk.posam.hoursalpha.domain.Employee;
 import sk.posam.hoursalpha.domain.VerificationToken;
 import sk.posam.hoursalpha.domain.service.IEmailService;
@@ -23,7 +24,7 @@ public class EmailServiceImpl implements IEmailService {
 
     @Override
     public void sendVerificationEmailWithToken(Employee employee) throws MessagingException {
-        VerificationToken verificationToken = verificationTokenService.findByEmployee(employee);
+       VerificationToken verificationToken = verificationTokenService.findByEmployee(employee).orElseThrow(VerificationTokenNotFoundException::new);
 
         String token = verificationToken.getToken();
 
