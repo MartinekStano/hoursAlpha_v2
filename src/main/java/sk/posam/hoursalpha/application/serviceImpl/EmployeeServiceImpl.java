@@ -168,4 +168,15 @@ public class EmployeeServiceImpl implements IEmployeeService {
             }
         }
     }
+
+    @Override
+    public EmployeeDto getEmployeeDetails(String email) {
+
+        Employee employee = employeeRepository.findEmployeeByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("User was not found!"));
+
+
+
+        return null;
+    }
 }

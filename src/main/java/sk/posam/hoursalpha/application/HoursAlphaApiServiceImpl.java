@@ -46,4 +46,9 @@ public class HoursAlphaApiServiceImpl implements IHoursAlphaApiService{
     public void resetPasswordViaEmail(String password, String token) {
         employeeService.resetPasswordViaEmail(password, token);
     }
+
+    @Override
+    public EmployeeDto getEmployeeDetails(String email) {
+       return employeeService.getEmployeeDetails(email);
+    }
 }

@@ -13,4 +13,6 @@ public interface IHoursAlphaApiService {
     void resetPasswordViaEmail(String password, String token);
     void resetPassword(String password, String email);
     void updateEmployeeProfile(EmployeeDto employeeDto, String email);
+
+    EmployeeDto getEmployeeDetails(String email);
 }

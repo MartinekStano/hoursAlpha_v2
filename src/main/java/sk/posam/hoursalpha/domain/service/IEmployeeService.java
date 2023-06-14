@@ -15,4 +15,6 @@ public interface IEmployeeService {
     void resetPassword(String password, String email);
 
     void updateEmployeeProfile(EmployeeDto employeeDto, String email);
+
+    EmployeeDto getEmployeeDetails(String email);
 }

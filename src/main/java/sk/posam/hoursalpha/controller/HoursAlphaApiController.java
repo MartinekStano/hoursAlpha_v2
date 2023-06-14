@@ -61,6 +61,7 @@ public class HoursAlphaApiController implements IHoursAlphaAPI {
 
     @Override
     public EmployeeDto getEmployeeDetails(Authentication authentication) {
-        return null;
+        UserDetails user = (UserDetails) authentication.getPrincipal();
+        return iHoursAlphaApiService.getEmployeeDetails(user.getUsername());
     }
 }
