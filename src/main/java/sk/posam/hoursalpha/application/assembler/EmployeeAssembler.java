@@ -1,8 +1,10 @@
 package sk.posam.hoursalpha.application.assembler;
 
+import org.springframework.stereotype.Component;
 import sk.posam.hoursalpha.api.dto.EmployeeDto;
 import sk.posam.hoursalpha.domain.Employee;
 
+@Component
 public class EmployeeAssembler {
     public EmployeeDto toDto(Employee employee){
         EmployeeDto dto = new EmployeeDto();

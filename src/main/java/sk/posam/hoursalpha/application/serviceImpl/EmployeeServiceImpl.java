@@ -6,6 +6,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sk.posam.hoursalpha.api.dto.EmployeeDto;
+import sk.posam.hoursalpha.application.assembler.EmployeeAssembler;
 import sk.posam.hoursalpha.application.repositoryCrud.ITokenJpaRepository;
 import sk.posam.hoursalpha.controller.exception.BadRequestException;
 import sk.posam.hoursalpha.controller.exception.EmailIsUnavailableException;
@@ -39,6 +40,9 @@ public class EmployeeServiceImpl implements IEmployeeService {
     IEmailService emailService;
     @Autowired
     private ITokenJpaRepository iTokenJpaRepository;
+
+    @Autowired
+    EmployeeAssembler assembler;
 
     @Override
     public void register(EmployeeDto dto) {
@@ -174,9 +178,6 @@ public class EmployeeServiceImpl implements IEmployeeService {
 
         Employee employee = employeeRepository.findEmployeeByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("User was not found!"));
-
-
-
-        return null;
+        return assembler.toDto(employee);
     }
 }
