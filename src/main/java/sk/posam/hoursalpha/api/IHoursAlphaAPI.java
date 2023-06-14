@@ -15,7 +15,7 @@ public interface IHoursAlphaAPI {
     @PostMapping("/noAuth/register")
     void register(@RequestBody EmployeeDto dto);
 
-    @PostMapping("/noAuth/verify/{token}")
+    @PostMapping("/noAuth/afterVerifyEmail/{token}")
     void activationEmailAddress(@PathVariable String token);
 
     @PostMapping("/noAuth/resendVerificationEmail")

@@ -1,6 +1,9 @@
 package sk.posam.hoursalpha.domain;
 
 import javax.persistence.*;
+import java.time.Year;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "employee", schema = "public")
@@ -34,6 +37,9 @@ public class Employee {
     @Column(name = "status")
     private boolean statusOfProfile;
 
+    @OneToMany(mappedBy = "yearRecord")
+    private List<YearRecord> listOfYearRecord;
+
     public Employee(String firstName, String lastName, String email, String password, String phoneNumber, boolean statusOfProfile) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -41,6 +47,7 @@ public class Employee {
         this.password = password;
         this.phoneNumber = phoneNumber;
         this.statusOfProfile = statusOfProfile;
+        this.listOfYearRecord = new ArrayList<>();
     }
 
     public Employee() {
