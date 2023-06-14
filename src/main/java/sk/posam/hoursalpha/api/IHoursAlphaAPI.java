@@ -31,5 +31,8 @@ public interface IHoursAlphaAPI {
     void resetPassword(@RequestParam String password, Authentication authentication);
 
     @PutMapping("/Auth/updateEmployeeProfile")
-    void updateEmployeeProfile(EmployeeDto employeeDto, Authentication authentication);
+    void updateEmployeeProfile(@RequestBody(required = false) EmployeeDto employeeDto, Authentication authentication);
+
+    @GetMapping("/Auth/employeeDetails")
+    EmployeeDto getEmployeeDetails(Authentication authentication);
 }

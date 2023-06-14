@@ -6,6 +6,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sk.posam.hoursalpha.api.dto.EmployeeDto;
+import sk.posam.hoursalpha.application.repositoryCrud.ITokenJpaRepository;
 import sk.posam.hoursalpha.controller.exception.BadRequestException;
 import sk.posam.hoursalpha.controller.exception.EmailIsUnavailableException;
 import sk.posam.hoursalpha.controller.exception.TokenExpiredException;
@@ -20,6 +21,7 @@ import javax.mail.MessagingException;
 import java.sql.Timestamp;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.function.BiConsumer;
 
 @Service
 public class EmployeeServiceImpl implements IEmployeeService {
@@ -35,6 +37,8 @@ public class EmployeeServiceImpl implements IEmployeeService {
 
     @Autowired
     IEmailService emailService;
+    @Autowired
+    private ITokenJpaRepository iTokenJpaRepository;
 
     @Override
     public void register(EmployeeDto dto) {
@@ -119,13 +123,34 @@ public class EmployeeServiceImpl implements IEmployeeService {
     }
 
     @Override
+    @Transactional
     public void resetPassword(String password, String email) {
+        Employee employee = employeeRepository.findEmployeeByEmail(email)
+                .orElseThrow( ()-> new UsernameNotFoundException("User was not found!"));
+
+            if(encoder.matches(password, employee.getPassword())){
+                throw new BadRequestException();
+            }else{
+                employee.setPassword(encoder.encode(password));
+            }
 
     }
 
     @Override
+    @Transactional
     public void updateEmployeeProfile(EmployeeDto employeeDto, String email) {
+        Employee employee = employeeRepository.findEmployeeByEmail(email)
+                .orElseThrow( ()-> new UsernameNotFoundException("User was not found!"));
 
+        saveIfNotEmpty(employeeDto.getFirstName(), employee, Employee::setFirstName);
+        saveIfNotEmpty(employeeDto.getLastName(), employee, Employee::setLastName);
+        saveIfNotEmpty(employeeDto.getPhoneNumber(), employee, Employee::setPhoneNumber);
+        saveIfNotEmpty(employeeDto.getEmail(), employee, Employee::setEmail);
+    }
+
+    public <T> void saveIfNotEmpty(T toBeSet, Employee employee, BiConsumer<Employee, T> setter){
+        if(toBeSet != null)
+            setter.accept(employee, toBeSet);
     }
 
     @Override
