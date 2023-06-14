@@ -6,6 +6,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sk.posam.hoursalpha.api.dto.EmployeeDto;
+import sk.posam.hoursalpha.controller.exception.BadRequestException;
 import sk.posam.hoursalpha.controller.exception.EmailIsUnavailableException;
 import sk.posam.hoursalpha.controller.exception.TokenExpiredException;
 import sk.posam.hoursalpha.domain.Employee;
@@ -128,7 +129,18 @@ public class EmployeeServiceImpl implements IEmployeeService {
     }
 
     @Override
+    @Transactional
     public void resetPasswordViaEmail(String password, String token) {
+        VerificationToken verificationToken = iVerificationTokenService.findByToken(token);
 
+        if(verificationToken.getExpiryDate().before(new Timestamp(System.currentTimeMillis()))){
+            throw new TokenExpiredException();
+        }else{
+            if(encoder.matches(password, verificationToken.getEmployee().getPassword())){
+                throw new BadRequestException();
+            }else {
+                verificationToken.getEmployee().setPassword(encoder.encode(password));
+            }
+        }
     }
 }

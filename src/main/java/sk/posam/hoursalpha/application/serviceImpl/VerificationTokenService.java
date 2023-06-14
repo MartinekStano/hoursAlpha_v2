@@ -31,7 +31,6 @@ public class VerificationTokenService implements IVerificationTokenService {
     @Override
     public Optional<VerificationToken> findByEmployee(Employee employee) {
         return iTokenRepository.findByEmployee(employee);
-
     }
 
     @Override
