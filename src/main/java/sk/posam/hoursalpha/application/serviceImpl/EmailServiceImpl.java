@@ -45,7 +45,7 @@ public class EmailServiceImpl implements IEmailService {
                 "</body>\n" +
                 "</html>";
 
-        body = body.replace("[[URL]]", "http://localhost:4200" + "/verifyEmail/" + token);
+        body = body.replace("[[URL]]", "http://localhost:4200" + "/afterVerifyEmail/" + token);
 
 
         MimeMessage message = javaMailSender.createMimeMessage();
