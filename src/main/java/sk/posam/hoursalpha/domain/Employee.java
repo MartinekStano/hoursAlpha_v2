@@ -1,5 +1,7 @@
 package sk.posam.hoursalpha.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.time.Year;
 import java.util.ArrayList;
@@ -38,6 +40,7 @@ public class Employee {
     private boolean statusOfProfile;
 
     @OneToMany(mappedBy = "employee")
+    @JsonIgnore
     private List<DayRecord> listOfYearRecord;
 
     public Employee(String firstName, String lastName, String email, String password, String phoneNumber, boolean statusOfProfile) {

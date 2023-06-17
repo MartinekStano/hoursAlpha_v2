@@ -52,5 +52,5 @@ public interface IHoursAlphaAPI {
      */
 
     @PostMapping("/Auth/createDayRecord")
-    void createDayRecord(@RequestBody DayRecordDto dayRecordDto, Authentication authentication);
+    void createDayRecord(@RequestBody(required = false) DayRecordDto dayRecordDto, Authentication authentication);
 }

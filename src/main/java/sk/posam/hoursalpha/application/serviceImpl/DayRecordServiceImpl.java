@@ -5,6 +5,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sk.posam.hoursalpha.api.dto.DayRecordDto;
+import sk.posam.hoursalpha.controller.exception.DayRecordAlreadyExistException;
 import sk.posam.hoursalpha.domain.DayRecord;
 import sk.posam.hoursalpha.domain.Employee;
 import sk.posam.hoursalpha.domain.repository.IDayRecordRepository;
@@ -27,10 +28,14 @@ public class DayRecordServiceImpl implements IDayRecordService {
     @Transactional
     @Override
     public void createDayRecord(String email, DayRecordDto dayRecordDto) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-uuuu");
+
         Employee employee = employeeRepository.findEmployeeByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found!"));
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-uuuu");
+        if(dayRecordRepository.findByDayRecordByDate(LocalDate.parse(dayRecordDto.date, formatter)).isPresent())
+            throw new DayRecordAlreadyExistException();
+
 
         DayRecord newDayRecord = new DayRecord(
                 LocalDate.parse(dayRecordDto.date, formatter).getYear(),

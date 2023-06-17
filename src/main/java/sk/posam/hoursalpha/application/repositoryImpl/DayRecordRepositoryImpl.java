@@ -7,6 +7,7 @@ import sk.posam.hoursalpha.domain.DayRecord;
 import sk.posam.hoursalpha.domain.repository.IDayRecordRepository;
 
 import javax.swing.text.html.Option;
+import java.time.LocalDate;
 import java.util.Optional;
 
 @Repository
@@ -19,5 +20,10 @@ public class DayRecordRepositoryImpl implements IDayRecordRepository {
     @Override
     public DayRecord saveNewDayRecord(DayRecord dayRecord) {
         return dayRecordJpaRepository.save(dayRecord);
+    }
+
+    @Override
+    public Optional<DayRecord> findByDayRecordByDate(LocalDate date) {
+        return dayRecordJpaRepository.findByDate(date);
     }
 }
