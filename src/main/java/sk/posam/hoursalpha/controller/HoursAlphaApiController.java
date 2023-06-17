@@ -18,8 +18,7 @@ public class HoursAlphaApiController implements IHoursAlphaAPI {
     IHoursAlphaApiService iHoursAlphaApiService;
 
     @Override
-    public Long login() {
-        return 1L;
+    public void login() {
     }
 
     @Override

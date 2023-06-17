@@ -10,7 +10,7 @@ import javax.mail.MessagingException;
 public interface IHoursAlphaAPI {
 
     @PostMapping("/Auth/login")
-    Long login();
+    void login();
 
     @PostMapping("/noAuth/register")
     void register(@RequestBody EmployeeDto dto);
