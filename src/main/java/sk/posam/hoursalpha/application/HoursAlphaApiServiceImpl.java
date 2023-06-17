@@ -2,7 +2,9 @@ package sk.posam.hoursalpha.application;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import sk.posam.hoursalpha.api.dto.DayRecordDto;
 import sk.posam.hoursalpha.api.dto.EmployeeDto;
+import sk.posam.hoursalpha.domain.service.IDayRecordService;
 import sk.posam.hoursalpha.domain.service.IEmployeeService;
 
 import javax.mail.MessagingException;
@@ -11,6 +13,9 @@ import javax.mail.MessagingException;
 public class HoursAlphaApiServiceImpl implements IHoursAlphaApiService{
     @Autowired
     private IEmployeeService employeeService;
+
+    @Autowired
+    private IDayRecordService dayRecordService;
 
     @Override
     public void register(EmployeeDto dto) {
@@ -50,5 +55,14 @@ public class HoursAlphaApiServiceImpl implements IHoursAlphaApiService{
     @Override
     public EmployeeDto getEmployeeDetails(String email) {
        return employeeService.getEmployeeDetails(email);
+    }
+
+    /*
+    DAY RECORD PART
+     */
+
+    @Override
+    public void createDayRecord(String email, DayRecordDto dayRecordDto) {
+        dayRecordService.createDayRecord(email, dayRecordDto);
     }
 }

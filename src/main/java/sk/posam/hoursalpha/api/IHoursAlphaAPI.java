@@ -3,6 +3,7 @@ package sk.posam.hoursalpha.api;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+import sk.posam.hoursalpha.api.dto.DayRecordDto;
 import sk.posam.hoursalpha.api.dto.EmployeeDto;
 
 import javax.mail.MessagingException;
@@ -10,6 +11,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public interface IHoursAlphaAPI {
+
+
+    /*
+    EMPLOYEE PART
+     */
 
     @PostMapping("/Auth/login")
     void login();
@@ -40,4 +46,11 @@ public interface IHoursAlphaAPI {
 
     @GetMapping("/Auth/employeeDetails")
     EmployeeDto getEmployeeDetails(Authentication authentication);
+
+    /*
+    DAY RECORD PART
+     */
+
+    @PostMapping("/Auth/createDayRecord")
+    void createDayRecord(@RequestBody DayRecordDto dayRecordDto, Authentication authentication);
 }

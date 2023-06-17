@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.web.bind.annotation.RestController;
 import sk.posam.hoursalpha.api.IHoursAlphaAPI;
+import sk.posam.hoursalpha.api.dto.DayRecordDto;
 import sk.posam.hoursalpha.api.dto.EmployeeDto;
 import sk.posam.hoursalpha.application.IHoursAlphaApiService;
 
@@ -22,6 +23,10 @@ public class HoursAlphaApiController implements IHoursAlphaAPI {
 
     @Autowired
     IHoursAlphaApiService iHoursAlphaApiService;
+
+     /*
+    USER PART
+     */
 
     @Override
     public void login() {
@@ -88,5 +93,15 @@ public class HoursAlphaApiController implements IHoursAlphaAPI {
     public EmployeeDto getEmployeeDetails(Authentication authentication) {
         UserDetails user = (UserDetails) authentication.getPrincipal();
         return iHoursAlphaApiService.getEmployeeDetails(user.getUsername());
+    }
+
+    /*
+    DAY RECORD PART
+     */
+
+    @Override
+    public void createDayRecord(DayRecordDto dayRecordDto, Authentication authentication) {
+        UserDetails user = (UserDetails) authentication.getPrincipal();
+        iHoursAlphaApiService.createDayRecord(user.getUsername(), dayRecordDto);
     }
 }
