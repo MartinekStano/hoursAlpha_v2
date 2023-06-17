@@ -37,8 +37,8 @@ public class Employee {
     @Column(name = "status")
     private boolean statusOfProfile;
 
-    @OneToMany(mappedBy = "yearRecord")
-    private List<YearRecord> listOfYearRecord;
+    @OneToMany(mappedBy = "employee")
+    private List<DayRecord> listOfYearRecord;
 
     public Employee(String firstName, String lastName, String email, String password, String phoneNumber, boolean statusOfProfile) {
         this.firstName = firstName;

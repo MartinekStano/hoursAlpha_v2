@@ -171,6 +171,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
                 verificationToken.getEmployee().setPassword(encoder.encode(password));
             }
         }
+
     }
 
     @Override
