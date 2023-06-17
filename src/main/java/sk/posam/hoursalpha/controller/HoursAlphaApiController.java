@@ -28,7 +28,7 @@ public class HoursAlphaApiController implements IHoursAlphaAPI {
     }
 
     @Override
-    public void logout(HttpServletRequest request, HttpServletResponse response) {
+    public void logout(HttpServletRequest request, HttpServletResponse response, String message) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();//get authentication from security context
 
         if (auth != null){
