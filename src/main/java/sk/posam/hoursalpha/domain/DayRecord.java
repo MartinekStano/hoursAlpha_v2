@@ -41,6 +41,16 @@ public class DayRecord {
     private Employee employee;
 
     public DayRecord(Integer year, Integer month, LocalDate date, String place, LocalTime timeFrom, LocalTime timeTo, LocalTime pause) {
+        this.date = date;
+        this.year = year;
+        this.month = month;
+        this.place = place;
+        this.timeFrom = timeFrom;
+        this.timeTo = timeTo;
+        this.pause = pause;
+    }
+
+    public DayRecord(Integer year, Integer month, LocalDate date, String place, LocalTime timeFrom, LocalTime timeTo, LocalTime pause, Employee employee) {
         this.year = year;
         this.month = month;
         this.date = date;
@@ -48,6 +58,7 @@ public class DayRecord {
         this.timeFrom = timeFrom;
         this.timeTo = timeTo;
         this.pause = pause;
+        this.employee = employee;
     }
 
     public DayRecord() {

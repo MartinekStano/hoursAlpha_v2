@@ -100,4 +100,8 @@ public class Employee {
     public void setStatusOfProfile(boolean statusOfProfile) {
         this.statusOfProfile = statusOfProfile;
     }
+
+    public List<DayRecord> getListOfYearRecord() {
+        return listOfYearRecord;
+    }
 }
