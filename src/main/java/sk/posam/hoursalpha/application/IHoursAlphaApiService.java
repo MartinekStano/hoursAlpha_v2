@@ -4,6 +4,7 @@ import sk.posam.hoursalpha.api.dto.DayRecordDto;
 import sk.posam.hoursalpha.api.dto.EmployeeDto;
 
 import javax.mail.MessagingException;
+import java.util.List;
 
 public interface IHoursAlphaApiService {
     void register(EmployeeDto dto);
@@ -18,4 +19,6 @@ public interface IHoursAlphaApiService {
     EmployeeDto getEmployeeDetails(String email);
 
     void createDayRecord(String email, DayRecordDto dayRecordDto);
+
+    List<DayRecordDto> getAllDayRecords(String email);
 }

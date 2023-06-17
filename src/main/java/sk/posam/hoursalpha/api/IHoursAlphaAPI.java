@@ -9,6 +9,7 @@ import sk.posam.hoursalpha.api.dto.EmployeeDto;
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 public interface IHoursAlphaAPI {
 
@@ -53,4 +54,7 @@ public interface IHoursAlphaAPI {
 
     @PostMapping("/Auth/createDayRecord")
     void createDayRecord(@RequestBody(required = false) DayRecordDto dayRecordDto, Authentication authentication);
+
+    @GetMapping("/Auth/getAllDayRecords")
+    List<DayRecordDto> getAllDayRecords(Authentication authentication);
 }

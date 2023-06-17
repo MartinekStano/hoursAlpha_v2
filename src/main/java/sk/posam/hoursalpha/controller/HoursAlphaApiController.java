@@ -17,6 +17,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @RestController
 public class HoursAlphaApiController implements IHoursAlphaAPI {
@@ -103,5 +104,11 @@ public class HoursAlphaApiController implements IHoursAlphaAPI {
     public void createDayRecord(DayRecordDto dayRecordDto, Authentication authentication) {
         UserDetails user = (UserDetails) authentication.getPrincipal();
         iHoursAlphaApiService.createDayRecord(user.getUsername(), dayRecordDto);
+    }
+
+    @Override
+    public List<DayRecordDto> getAllDayRecords(Authentication authentication) {
+        UserDetails user = (UserDetails) authentication.getPrincipal();
+        return iHoursAlphaApiService.getAllDayRecords(user.getUsername());
     }
 }

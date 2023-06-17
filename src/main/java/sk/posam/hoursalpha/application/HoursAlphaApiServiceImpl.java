@@ -8,6 +8,7 @@ import sk.posam.hoursalpha.domain.service.IDayRecordService;
 import sk.posam.hoursalpha.domain.service.IEmployeeService;
 
 import javax.mail.MessagingException;
+import java.util.List;
 
 @Service
 public class HoursAlphaApiServiceImpl implements IHoursAlphaApiService{
@@ -64,5 +65,10 @@ public class HoursAlphaApiServiceImpl implements IHoursAlphaApiService{
     @Override
     public void createDayRecord(String email, DayRecordDto dayRecordDto) {
         dayRecordService.createDayRecord(email, dayRecordDto);
+    }
+
+    @Override
+    public List<DayRecordDto> getAllDayRecords(String email) {
+        return dayRecordService.getAllDayRecords(email);
     }
 }

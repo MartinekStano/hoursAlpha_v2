@@ -21,19 +21,15 @@ import java.util.stream.Collectors;
 public class DayRecordAssembler {
 
     public DayRecordDto toDto(DayRecord dayRecord){
-        Date date = Calendar.getInstance().getTime();
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
-        DateFormat timeFormat = new SimpleDateFormat("hh:mm:ss");
-
         DayRecordDto dto = new DayRecordDto();
 
         dto.year = dayRecord.getYear();
         dto.month = dayRecord.getMonth();
-        dto.date = dateFormat.format(dayRecord.getDate());
+        dto.date = dayRecord.getDate().format(DateTimeFormatter.ofPattern("dd-MM-uuuu"));
         dto.place = dayRecord.getPlace();
-        dto.timeFrom = timeFormat.format(dayRecord.getTimeFrom());
-        dto.timeTo = timeFormat.format(dayRecord.getTimeTo());
-        dto.pause = timeFormat.format(dayRecord.getPause());
+        dto.timeFrom = dayRecord.getTimeFrom().toString();
+        dto.timeTo = dayRecord.getTimeTo().toString();
+        dto.pause = dayRecord.getPause().toString();
 
         return dto;
     }
