@@ -1,9 +1,5 @@
 package sk.posam.hoursalpha.api.dto;
 
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-
-import javax.persistence.criteria.CriteriaBuilder;
-
 public class DayRecordDto {
 
     public String date;

@@ -56,7 +56,10 @@ public class EmployeeServiceImpl implements IEmployeeService {
                     dto.getEmail(),
                     encoder.encode(dto.getPassword()),
                     dto.getPhoneNumber(),
-                    false
+                    false,
+                    dto.getAddress(),
+                    dto.getZip(),
+                    dto.getSalary()
             ));
 
             savedEmployee.ifPresent(u -> {

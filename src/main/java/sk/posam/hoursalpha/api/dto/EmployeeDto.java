@@ -10,6 +10,12 @@ public class EmployeeDto {
 
     private boolean statusOfProfile;
 
+    private String address;
+    private String zip;
+    private double salary;
+
+
+
     public String getFirstName() {
         return firstName;
     }
@@ -56,5 +62,29 @@ public class EmployeeDto {
 
     public void setStatusOfProfile(boolean statusOfProfile) {
         this.statusOfProfile = statusOfProfile;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getZip() {
+        return zip;
+    }
+
+    public void setZip(String zip) {
+        this.zip = zip;
+    }
+
+    public double getSalary() {
+        return salary;
+    }
+
+    public void setSalary(double salary) {
+        this.salary = salary;
     }
 }

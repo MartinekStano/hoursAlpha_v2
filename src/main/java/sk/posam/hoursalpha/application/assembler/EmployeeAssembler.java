@@ -13,6 +13,9 @@ public class EmployeeAssembler {
         dto.setLastName(employee.getLastName());
         dto.setEmail(employee.getEmail());
         dto.setPhoneNumber(employee.getPhoneNumber());
+        dto.setAddress(employee.getAddress());
+        dto.setZip(employee.getZip());
+        dto.setSalary(employee.getSalaryPerHour());
         return dto;
     }
 
@@ -23,7 +26,10 @@ public class EmployeeAssembler {
              dto.getEmail(),
              dto.getPassword(),
              dto.getPhoneNumber(),
-             dto.isStatusOfProfile()
+             dto.isStatusOfProfile(),
+                dto.getZip(),
+                dto.getAddress(),
+                dto.getSalary()
         );
     }
 }

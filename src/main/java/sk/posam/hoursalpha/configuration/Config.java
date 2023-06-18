@@ -19,7 +19,10 @@ public class Config {
                     "martinmatostano@gmail.com",
                     password,
                     "0911455600",
-                    true);
+                    true,
+                    "Konhora",
+                    "01303",
+                    2.5);
 
             repo.save(employee);
 
