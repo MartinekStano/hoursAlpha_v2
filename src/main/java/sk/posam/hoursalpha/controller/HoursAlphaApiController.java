@@ -34,23 +34,8 @@ public class HoursAlphaApiController implements IHoursAlphaAPI {
     }
 
     @Override
-    public void logout(HttpServletRequest request, HttpServletResponse response, int logoutNum) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();//get authentication from security context
-
-        if (auth != null){
-            new SecurityContextLogoutHandler().logout(request, response, auth);//logout
-        }
-
-        HttpSession session = request.getSession(false);//destroy session
-        if (session != null) {
-            session.invalidate();
-        }
-
-        // delete the JSESSIONID cookie
-        Cookie jSessionId = new Cookie("JSESSIONID", "");
-        jSessionId.setMaxAge(0);
-        jSessionId.setPath("/");
-        response.addCookie(jSessionId);
+    public void logout() {
+       SecurityContextHolder.getContext().setAuthentication(null);
     }
 
     @Override
