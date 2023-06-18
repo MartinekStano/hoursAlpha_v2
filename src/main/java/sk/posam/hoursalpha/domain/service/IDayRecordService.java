@@ -10,4 +10,6 @@ public interface IDayRecordService {
     List<DayRecordDto> getAllDayRecords(String email);
 
     void sendNotificationIfDayRecordDoesntExist();
+
+    void recordDefaultRecord();
 }

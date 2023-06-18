@@ -13,8 +13,13 @@ public class ScheduleConfiguration {
     @Autowired
     private IDayRecordService dayRecordService;
 
-    @Scheduled(cron = "0 0 13 * * SAT-SUN") //second minute hour day month weekday
+    @Scheduled(cron = "0 0 20 * * MON-FRI") //second minute hour day month weekday
     public void sendNotificationToEmployee(){
         dayRecordService.sendNotificationIfDayRecordDoesntExist();
     }
+
+    @Scheduled(cron = "0 50 23 * * *")
+    public void recordDefaultRecord(){
+        dayRecordService.recordDefaultRecord();
+    };
 }

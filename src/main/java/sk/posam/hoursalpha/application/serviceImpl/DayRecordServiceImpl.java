@@ -1,6 +1,7 @@
 package sk.posam.hoursalpha.application.serviceImpl;
 
 import net.bytebuddy.asm.Advice;
+import org.hibernate.type.DateType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -80,7 +81,6 @@ public class DayRecordServiceImpl implements IDayRecordService {
     public void sendNotificationIfDayRecordDoesntExist() {
         List<Employee> listOfEmployee = employeeRepository.getAllEmployee();
 
-        System.out.println(LocalDate.now());
 
         listOfEmployee.forEach(e -> {
             Optional<DayRecord> dayRecord = dayRecordRepository.findByDayRecordByEmployeeAndDate(e, LocalDate.now());
@@ -98,5 +98,31 @@ public class DayRecordServiceImpl implements IDayRecordService {
 
         });
 
+    }
+
+    @Override
+    @Transactional
+    public void recordDefaultRecord() {
+        List<Employee> listOfEmployee = employeeRepository.getAllEmployee();
+
+        listOfEmployee.forEach(e -> {
+            Optional<DayRecord> dayRecord = dayRecordRepository.findByDayRecordByEmployeeAndDate(e, LocalDate.now());
+
+            if(dayRecord.isEmpty()){
+                DayRecord defaultDayRecord = new DayRecord(
+                        LocalDate.now().getYear(),
+                        LocalDate.now().getMonthValue(),
+                        LocalDate.now(),
+                        "Undefined",
+                        LocalTime.parse("00:00"),
+                        LocalTime.parse("00:00"),
+                        LocalTime.parse("00:00"),
+                        e
+                );
+
+            e.getListOfYearRecord().add(dayRecordRepository.saveNewDayRecord(defaultDayRecord));
+            }
+
+        });
     }
 }
