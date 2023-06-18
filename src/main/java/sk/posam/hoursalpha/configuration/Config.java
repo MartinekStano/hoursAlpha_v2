@@ -1,4 +1,4 @@
-package sk.posam.hoursalpha;
+package sk.posam.hoursalpha.configuration;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
@@ -16,7 +16,7 @@ public class Config {
             String password = passwordEncoderProvider.getEncoder().encode("1234");
             Employee employee = new Employee("Martin",
                     "Stano",
-                    "mato@gmail.com",
+                    "martinmatostano@gmail.com",
                     password,
                     "0911455600",
                     true);

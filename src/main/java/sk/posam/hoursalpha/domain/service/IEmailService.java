@@ -9,4 +9,6 @@ public interface IEmailService {
     void sendVerificationEmailWithToken(Employee employee) throws MessagingException;
 
     void sendResetPasswordViaEmail(Employee employee) throws MessagingException;
+
+    void sendNotificationToEmployee(String email) throws MessagingException;
 }

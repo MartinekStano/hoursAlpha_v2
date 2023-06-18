@@ -3,9 +3,7 @@ package sk.posam.hoursalpha.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.web.bind.annotation.RestController;
 import sk.posam.hoursalpha.api.IHoursAlphaAPI;
 import sk.posam.hoursalpha.api.dto.DayRecordDto;
@@ -13,10 +11,6 @@ import sk.posam.hoursalpha.api.dto.EmployeeDto;
 import sk.posam.hoursalpha.application.IHoursAlphaApiService;
 
 import javax.mail.MessagingException;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @RestController

@@ -92,4 +92,35 @@ public class EmailServiceImpl implements IEmailService {
             javaMailSender.send(message);
         }
     }
+
+    @Override
+    public void sendNotificationToEmployee(String email) throws MessagingException{
+
+        String body = "<!DOCTYPE html>\n" +
+                "<html lang=\"en\">\n" +
+                "<head>\n" +
+                "    <meta charset=\"UTF-8\">\n" +
+                "    <title>Hours Alpha REMINDER</title>\n" +
+                "</head>\n" +
+                "<body>\n" +
+                "    <div class=\".container\">\n" +
+                "      <h3>REMINDER</h3><br>\n" +
+                "      <p>Please record your hours</p><br>\n" +
+                "      <a href=\"[[URL]]\">RECORD HOURS</a>\n" +
+                "      <h3>Bye! Team Hours Alpha</h3>\n" +
+                "      \n" +
+                "    </div>\n" +
+                "</body>\n" +
+                "</html>";
+
+        body = body.replace("[[URL]]", "http://localhost:4200" + "/hoursAlpha");
+
+        MimeMessage message = javaMailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message, true);
+
+        helper.setTo(email);
+        helper.setSubject("HOURS ALPHA REMINDER");
+        helper.setText(body, true);
+        javaMailSender.send(message);
+    }
 }

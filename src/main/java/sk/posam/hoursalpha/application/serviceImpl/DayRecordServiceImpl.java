@@ -1,23 +1,28 @@
 package sk.posam.hoursalpha.application.serviceImpl;
 
+import net.bytebuddy.asm.Advice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sk.posam.hoursalpha.api.dto.DayRecordDto;
 import sk.posam.hoursalpha.application.assembler.DayRecordAssembler;
+import sk.posam.hoursalpha.controller.exception.BadRequestException;
 import sk.posam.hoursalpha.controller.exception.DayRecordAlreadyExistException;
 import sk.posam.hoursalpha.domain.DayRecord;
 import sk.posam.hoursalpha.domain.Employee;
 import sk.posam.hoursalpha.domain.repository.IDayRecordRepository;
 import sk.posam.hoursalpha.domain.repository.IEmployeeRepository;
 import sk.posam.hoursalpha.domain.service.IDayRecordService;
+import sk.posam.hoursalpha.domain.service.IEmailService;
 
+import javax.mail.MessagingException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class DayRecordServiceImpl implements IDayRecordService {
@@ -30,6 +35,9 @@ public class DayRecordServiceImpl implements IDayRecordService {
 
     @Autowired
     private DayRecordAssembler dayRecordAssembler;
+
+    @Autowired
+    private IEmailService emailService;
 
     @Transactional
     @Override
@@ -65,6 +73,30 @@ public class DayRecordServiceImpl implements IDayRecordService {
         
         return dayRecordAssembler.toDto(employee.getListOfYearRecord());
 
+
+    }
+
+    @Override
+    public void sendNotificationIfDayRecordDoesntExist() {
+        List<Employee> listOfEmployee = employeeRepository.getAllEmployee();
+
+        System.out.println(LocalDate.now());
+
+        listOfEmployee.forEach(e -> {
+            Optional<DayRecord> dayRecord = dayRecordRepository.findByDayRecordByEmployeeAndDate(e, LocalDate.now());
+
+            if (dayRecord.isEmpty()) {
+                try {
+                    emailService.sendNotificationToEmployee(e.getEmail());
+                } catch (MessagingException ex) {
+                    ex.printStackTrace();
+                    System.out.println(ex.getMessage());
+                    throw new BadRequestException();
+                }
+            }
+
+
+        });
 
     }
 }

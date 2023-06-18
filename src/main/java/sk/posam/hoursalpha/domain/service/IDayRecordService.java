@@ -8,4 +8,6 @@ public interface IDayRecordService {
     void createDayRecord(String email, DayRecordDto dayRecordDto);
 
     List<DayRecordDto> getAllDayRecords(String email);
+
+    void sendNotificationIfDayRecordDoesntExist();
 }

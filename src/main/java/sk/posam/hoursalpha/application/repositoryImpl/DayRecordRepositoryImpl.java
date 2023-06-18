@@ -4,9 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import sk.posam.hoursalpha.application.repositoryCrud.IDayRecordJpaRepository;
 import sk.posam.hoursalpha.domain.DayRecord;
+import sk.posam.hoursalpha.domain.Employee;
 import sk.posam.hoursalpha.domain.repository.IDayRecordRepository;
 
-import javax.swing.text.html.Option;
 import java.time.LocalDate;
 import java.util.Optional;
 
@@ -25,5 +25,10 @@ public class DayRecordRepositoryImpl implements IDayRecordRepository {
     @Override
     public Optional<DayRecord> findByDayRecordByDate(LocalDate date) {
         return dayRecordJpaRepository.findByDate(date);
+    }
+
+    @Override
+    public Optional<DayRecord> findByDayRecordByEmployeeAndDate(Employee e, LocalDate date) {
+        return dayRecordJpaRepository.findByEmployeeAndDate(e, date);
     }
 }
