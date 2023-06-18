@@ -22,7 +22,7 @@ public interface IHoursAlphaAPI {
     void login();
 
     @PostMapping("/noAuth/logout")
-    void logout(HttpServletRequest request, HttpServletResponse response, @RequestParam(name = "logOutMessage") String logOutMessage);
+    void logout(HttpServletRequest request, HttpServletResponse response, @RequestParam int logoutNum);
 
     @PostMapping("/noAuth/register")
     void register(@RequestBody EmployeeDto dto);

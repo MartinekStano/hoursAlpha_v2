@@ -16,6 +16,7 @@ import sk.posam.hoursalpha.domain.service.IDayRecordService;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -61,8 +62,9 @@ public class DayRecordServiceImpl implements IDayRecordService {
     public List<DayRecordDto> getAllDayRecords(String email) {
         Employee employee = employeeRepository.findEmployeeByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found!"));
-
-
+        
         return dayRecordAssembler.toDto(employee.getListOfYearRecord());
+
+
     }
 }
