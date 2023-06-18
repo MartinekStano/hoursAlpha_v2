@@ -34,6 +34,22 @@ public class DayRecordAssembler {
         return dto;
     }
 
+    public DayRecordDto toAdvancedDto(DayRecord dayRecord, double totalSalary, double totalHours){
+        DayRecordDto dto = new DayRecordDto();
+
+        dto.year = dayRecord.getYear();
+        dto.month = dayRecord.getMonth();
+        dto.date = dayRecord.getDate().format(DateTimeFormatter.ofPattern("dd-MM-uuuu"));
+        dto.place = dayRecord.getPlace();
+        dto.timeFrom = dayRecord.getTimeFrom().toString();
+        dto.timeTo = dayRecord.getTimeTo().toString();
+        dto.pause = dayRecord.getPause().toString();
+        dto.totalSalary = totalSalary;
+        dto.totalHours = totalHours;
+
+        return dto;
+    }
+
     public DayRecord fromDto(DayRecordDto dto){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern( "dd-MM-uuuu" );
 

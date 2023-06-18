@@ -5,6 +5,7 @@ import sk.posam.hoursalpha.domain.DayRecord;
 import sk.posam.hoursalpha.domain.Employee;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 public interface IDayRecordJpaRepository extends JpaRepository<DayRecord, Long> {
@@ -12,4 +13,6 @@ public interface IDayRecordJpaRepository extends JpaRepository<DayRecord, Long> 
     Optional<DayRecord> findByDate(LocalDate date);
 
     Optional<DayRecord> findByEmployeeAndDate(Employee e, LocalDate date);
+
+    List<DayRecord> findByEmployeeAndMonthAndYear(Employee employee, int month, int year);
 }

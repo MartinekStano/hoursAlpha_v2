@@ -5,6 +5,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import sk.posam.hoursalpha.api.dto.DayRecordDto;
 import sk.posam.hoursalpha.api.dto.EmployeeDto;
+import sk.posam.hoursalpha.api.dto.SalaryDto;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
@@ -57,4 +58,11 @@ public interface IHoursAlphaAPI {
 
     @GetMapping("/Auth/getAllDayRecords")
     List<DayRecordDto> getAllDayRecords(Authentication authentication);
+
+    @PutMapping("/Auth/editDayRecords")
+    void editDayRecord(@RequestBody(required = false) DayRecordDto dayRecordDto, Authentication authentication);
+
+    @GetMapping("/Auth/calculatorSalary")
+    SalaryDto getCalculateSalary(Authentication authentication, @RequestParam int month, @RequestParam int year);
+
 }

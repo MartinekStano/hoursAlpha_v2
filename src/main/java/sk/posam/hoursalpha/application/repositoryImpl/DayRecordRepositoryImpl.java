@@ -8,6 +8,7 @@ import sk.posam.hoursalpha.domain.Employee;
 import sk.posam.hoursalpha.domain.repository.IDayRecordRepository;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -30,5 +31,10 @@ public class DayRecordRepositoryImpl implements IDayRecordRepository {
     @Override
     public Optional<DayRecord> findByDayRecordByEmployeeAndDate(Employee e, LocalDate date) {
         return dayRecordJpaRepository.findByEmployeeAndDate(e, date);
+    }
+
+    @Override
+    public List<DayRecord> findByEmployeeAndMonthAndYear(Employee employee, int month, int year) {
+        return dayRecordJpaRepository.findByEmployeeAndMonthAndYear(employee, month, year);
     }
 }

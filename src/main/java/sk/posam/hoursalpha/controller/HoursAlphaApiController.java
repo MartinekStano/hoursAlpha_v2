@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import sk.posam.hoursalpha.api.IHoursAlphaAPI;
 import sk.posam.hoursalpha.api.dto.DayRecordDto;
 import sk.posam.hoursalpha.api.dto.EmployeeDto;
+import sk.posam.hoursalpha.api.dto.SalaryDto;
 import sk.posam.hoursalpha.application.IHoursAlphaApiService;
 
 import javax.mail.MessagingException;
@@ -89,5 +90,17 @@ public class HoursAlphaApiController implements IHoursAlphaAPI {
     public List<DayRecordDto> getAllDayRecords(Authentication authentication) {
         UserDetails user = (UserDetails) authentication.getPrincipal();
         return iHoursAlphaApiService.getAllDayRecords(user.getUsername());
+    }
+
+    @Override
+    public void editDayRecord(DayRecordDto dayRecordDto, Authentication authentication) {
+        UserDetails user = (UserDetails) authentication.getPrincipal();
+        iHoursAlphaApiService.editDayRecord(user.getUsername(), dayRecordDto);
+    }
+
+    @Override
+    public SalaryDto getCalculateSalary(Authentication authentication, int month, int year) {
+        UserDetails user = (UserDetails) authentication.getPrincipal();
+        return iHoursAlphaApiService.getCalculateSalary(user.getUsername(), month, year);
     }
 }

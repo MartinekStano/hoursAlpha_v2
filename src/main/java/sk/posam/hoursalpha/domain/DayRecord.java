@@ -95,4 +95,20 @@ public class DayRecord {
     public Integer getMonth() {
         return month;
     }
+
+    public void setPlace(String place) {
+        this.place = place;
+    }
+
+    public void setTimeFrom(LocalTime timeFrom) {
+        this.timeFrom = timeFrom;
+    }
+
+    public void setTimeTo(LocalTime timeTo) {
+        this.timeTo = timeTo;
+    }
+
+    public void setPause(LocalTime pause) {
+        this.pause = pause;
+    }
 }

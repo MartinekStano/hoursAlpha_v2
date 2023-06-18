@@ -7,6 +7,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sk.posam.hoursalpha.api.dto.DayRecordDto;
+import sk.posam.hoursalpha.api.dto.SalaryDto;
 import sk.posam.hoursalpha.application.assembler.DayRecordAssembler;
 import sk.posam.hoursalpha.controller.exception.BadRequestException;
 import sk.posam.hoursalpha.controller.exception.DayRecordAlreadyExistException;
@@ -21,9 +22,14 @@ import javax.mail.MessagingException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.BiConsumer;
+
+import static java.time.temporal.ChronoUnit.MINUTES;
+
 
 @Service
 public class DayRecordServiceImpl implements IDayRecordService {
@@ -71,10 +77,82 @@ public class DayRecordServiceImpl implements IDayRecordService {
     public List<DayRecordDto> getAllDayRecords(String email) {
         Employee employee = employeeRepository.findEmployeeByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found!"));
-        
-        return dayRecordAssembler.toDto(employee.getListOfYearRecord());
+
+        List<DayRecordDto> listOfAdvancedDayRecords = new ArrayList<>();
+
+        employee.getListOfYearRecord().forEach(r -> {
+            double pause = MINUTES.between(LocalTime.parse("00:00"), r.getPause());
+            double totalHours  = (MINUTES.between(r.getTimeFrom(), r.getTimeTo()))-pause;
+            totalHours /= 60;
+
+            double totalSalary = totalHours*employee.getSalaryPerHour();
 
 
+            listOfAdvancedDayRecords.add(dayRecordAssembler.toAdvancedDto(r,totalSalary,totalHours ));
+
+        });
+
+        return listOfAdvancedDayRecords;
+
+    }
+
+    @Override
+    @Transactional
+    public void editDayRecord(String email, DayRecordDto dayRecordDto) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-uuuu");
+
+        DayRecord dayRecord = dayRecordRepository.findByDayRecordByDate(LocalDate.parse(dayRecordDto.date, formatter))
+                .orElseThrow(BadRequestException::new);
+
+        saveIfNotEmpty(dayRecordDto.place, dayRecord, DayRecord::setPlace);
+        saveIfNotEmpty(LocalTime.parse(dayRecordDto.timeTo), dayRecord, DayRecord::setTimeTo);
+        saveIfNotEmpty(LocalTime.parse(dayRecordDto.timeFrom), dayRecord, DayRecord::setTimeFrom);
+        saveIfNotEmpty(LocalTime.parse(dayRecordDto.pause), dayRecord, DayRecord::setPause);
+
+    }
+
+    public <T> void saveIfNotEmpty(T toBeSet, DayRecord dayRecord, BiConsumer<DayRecord, T> setter){
+        if(toBeSet != null)
+            setter.accept(dayRecord, toBeSet);
+    }
+
+    @Override
+    public SalaryDto getCalculateSalary(String email, int month, int year) {
+
+        Employee employee = employeeRepository.findEmployeeByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("User was not found!"));
+
+        List<DayRecord> dayRecords = dayRecordRepository.findByEmployeeAndMonthAndYear(employee, month, year);
+
+        SalaryDto salaryDto = new SalaryDto(0,0,0);
+
+        dayRecords.forEach(r -> {
+            salaryDto.totalHours += calculateWorkTime(r.getTimeFrom(), r.getTimeTo(), r.getPause());
+        });
+
+        salaryDto.totalSalary = salaryDto.totalHours*employee.getSalaryPerHour();
+        salaryDto.clearSalary = calculateClearSalary(salaryDto);
+
+
+        return salaryDto;
+    }
+
+    public double calculateWorkTime(LocalTime timeFromDB, LocalTime timeToDB, LocalTime pauseDB){
+
+        double pause = MINUTES.between(LocalTime.parse("00:00"), pauseDB);
+        double totalHours  = (MINUTES.between(timeFromDB, timeToDB))-pause;
+        totalHours /= 60;
+
+        return totalHours;
+    }
+
+    public double calculateClearSalary(SalaryDto salaryDto){
+        double levies = salaryDto.totalSalary*0.134;
+        double tax = (salaryDto.totalSalary - levies) - 410.24;
+        tax *= 0.19;
+
+
+        return salaryDto.totalSalary - levies - tax;
     }
 
     @Override

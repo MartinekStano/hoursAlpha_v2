@@ -12,4 +12,6 @@ public class DayRecordDto {
     public String timeTo;
 
     public String pause;
+    public Double totalSalary;
+    public Double totalHours;
 }

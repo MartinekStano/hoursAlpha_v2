@@ -2,6 +2,7 @@ package sk.posam.hoursalpha.application;
 
 import sk.posam.hoursalpha.api.dto.DayRecordDto;
 import sk.posam.hoursalpha.api.dto.EmployeeDto;
+import sk.posam.hoursalpha.api.dto.SalaryDto;
 
 import javax.mail.MessagingException;
 import java.util.List;
@@ -21,4 +22,8 @@ public interface IHoursAlphaApiService {
     void createDayRecord(String email, DayRecordDto dayRecordDto);
 
     List<DayRecordDto> getAllDayRecords(String email);
+
+    void editDayRecord(String email, DayRecordDto dayRecordDto);
+
+    SalaryDto getCalculateSalary(String email, int month, int year);
 }
