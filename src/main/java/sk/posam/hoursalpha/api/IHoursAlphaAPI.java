@@ -5,6 +5,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import sk.posam.hoursalpha.api.dto.DayRecordDto;
 import sk.posam.hoursalpha.api.dto.EmployeeDto;
+import sk.posam.hoursalpha.api.dto.LoginDto;
 import sk.posam.hoursalpha.api.dto.SalaryDto;
 
 import javax.mail.MessagingException;
@@ -20,7 +21,7 @@ public interface IHoursAlphaAPI {
      */
 
     @PostMapping("/Auth/login")
-    void login();
+    void login(@RequestBody LoginDto loginDto);
 
     @PostMapping("/noAuth/logout")
     void logout(HttpServletRequest request);

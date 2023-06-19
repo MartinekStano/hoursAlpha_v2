@@ -18,6 +18,9 @@ public class EmployeeDetailsService implements UserDetailsService {
 
     @Autowired
     private IEmployeeRepository repository;
+
+    @Autowired
+    private PasswordEncoderProvider passwordEncoder;
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Optional<Employee> employee = repository.findEmployeeByEmail(email);
