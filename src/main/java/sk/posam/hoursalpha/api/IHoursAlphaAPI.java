@@ -23,7 +23,7 @@ public interface IHoursAlphaAPI {
     void login();
 
     @PostMapping("/noAuth/logout")
-    void logout();
+    void logout(HttpServletRequest request, HttpServletResponse response);
 
     @PostMapping("/noAuth/register")
     void register(@RequestBody EmployeeDto dto);
