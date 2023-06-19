@@ -1,6 +1,7 @@
 package sk.posam.hoursalpha.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -34,23 +35,10 @@ public class HoursAlphaApiController implements IHoursAlphaAPI {
     }
 
     @Override
-    public void logout(HttpServletRequest request, HttpServletResponse response) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();//get authentication from security context
-
-        if (auth != null){
-            new SecurityContextLogoutHandler().logout(request, response, auth);//logout
-        }
-
-        HttpSession session = request.getSession(false);//destroy session
-        if (session != null) {
-            session.invalidate();
-        }
-
-        // delete the JSESSIONID cookie
-        Cookie jSessionId = new Cookie("JSESSIONID", "");
-        jSessionId.setMaxAge(0);
-        jSessionId.setPath("/");
-        response.addCookie(jSessionId);
+    public void logout(HttpServletRequest request) {
+        SecurityContextHolder.getContext().setAuthentication(null);
+        request.getSession().invalidate();
+//        return ResponseEntity.ok().build();
 
     }
 
