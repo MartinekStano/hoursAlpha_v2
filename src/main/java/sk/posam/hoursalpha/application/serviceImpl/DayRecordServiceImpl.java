@@ -57,6 +57,14 @@ public class DayRecordServiceImpl implements IDayRecordService {
         if(dayRecordRepository.findByDayRecordByDate(LocalDate.parse(dayRecordDto.date, formatter)).isPresent())
             throw new DayRecordAlreadyExistException();
 
+        if(dayRecordDto.timeFrom.equals(dayRecordDto.timeTo))
+            throw new BadRequestException();
+
+        double pause = MINUTES.between(LocalTime.parse("00:00"), LocalTime.parse(dayRecordDto.pause));
+        double totalHours  = (MINUTES.between(LocalTime.parse(dayRecordDto.timeFrom), LocalTime.parse(dayRecordDto.timeTo)))-pause;
+
+        if(totalHours < pause)
+            throw new BadRequestException();
 
         DayRecord newDayRecord = new DayRecord(
                 LocalDate.parse(dayRecordDto.date, formatter).getYear(),
@@ -126,15 +134,18 @@ public class DayRecordServiceImpl implements IDayRecordService {
 
         SalaryDto salaryDto = new SalaryDto(0,0,0);
 
-        dayRecords.forEach(r -> {
-            salaryDto.totalHours += calculateWorkTime(r.getTimeFrom(), r.getTimeTo(), r.getPause());
-        });
-
+        salaryDto.totalHours = calculateTotalHours(dayRecords);
         salaryDto.totalSalary = salaryDto.totalHours*employee.getSalaryPerHour();
         salaryDto.clearSalary = calculateClearSalary(salaryDto);
 
 
         return salaryDto;
+    }
+
+    public double calculateTotalHours(List<DayRecord> dayRecords){
+        return  dayRecords.stream()
+                .mapToDouble(r -> calculateWorkTime(r.getTimeFrom(), r.getTimeTo(), r.getPause()))
+                .sum();
     }
 
     public double calculateWorkTime(LocalTime timeFromDB, LocalTime timeToDB, LocalTime pauseDB){
@@ -147,12 +158,15 @@ public class DayRecordServiceImpl implements IDayRecordService {
     }
 
     public double calculateClearSalary(SalaryDto salaryDto){
-        double levies = salaryDto.totalSalary*0.134;
-        double tax = (salaryDto.totalSalary - levies) - 410.24;
-        tax *= 0.19;
 
-
-        return salaryDto.totalSalary - levies - tax;
+        if(salaryDto.totalSalary >= 700){
+            double levies = salaryDto.totalSalary*0.134;
+            double tax = (salaryDto.totalSalary - levies) - 410.24;
+            tax *= 0.19;
+            return salaryDto.totalSalary - levies - tax;
+        }else {
+            throw new BadRequestException();
+        }
     }
 
     @Override

@@ -22,7 +22,7 @@ public class Config {
                     true,
                     "Konhora",
                     "01303",
-                    2.5);
+                    350);
 
             repo.save(employee);
 
