@@ -67,7 +67,7 @@ public interface IHoursAlphaAPI {
     @PutMapping("/Auth/editDayRecords")
     void editDayRecord(@RequestBody(required = false) DayRecordDto dayRecordDto, Authentication authentication);
 
-    @PostMapping("/Auth/calculatorSalary")
-    SalaryDto getCalculateSalary(Authentication authentication, @RequestParam String date);
+    @PostMapping("/Auth/calculatorSalary/{date}")
+    SalaryDto getCalculateSalary(Authentication authentication, @PathVariable String date);
 
 }
