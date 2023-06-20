@@ -166,7 +166,7 @@ public class DayRecordServiceImpl implements IDayRecordService {
             tax *= 0.19;
             return salaryDto.totalSalary - levies - tax;
         }else {
-            throw new BadRequestException();
+            return salaryDto.totalSalary;
         }
     }
 
