@@ -69,4 +69,7 @@ public interface IHoursAlphaAPI {
 
     @PostMapping("/Auth/salaryCalculatorWithParam")
     SalaryCalculatorDto getCalculatedSalaryWithParam(@RequestBody(required = false) SalaryCalculatorDto salaryCalculatorDto);
+
+    @GetMapping("/Auth/salaryCalculatorInit")
+    SalaryCalculatorDto getCalculatedSalaryInit();
 }

@@ -33,4 +33,6 @@ public interface IHoursAlphaApiService {
     List<DayRecordDto> getAllDayRecordsCurrentMonth(String email, String date);
 
     SalaryCalculatorDto getCalculatedSalaryWithParam(SalaryCalculatorDto salaryCalculatorDto);
+
+    SalaryCalculatorDto getCalculatorInit();
 }

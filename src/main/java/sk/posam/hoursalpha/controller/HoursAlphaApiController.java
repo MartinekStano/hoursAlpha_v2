@@ -126,4 +126,9 @@ public class HoursAlphaApiController implements IHoursAlphaAPI {
         UserDetails user = (UserDetails) authentication.getPrincipal();
         return iHoursAlphaApiService.getAllDayRecordsCurrentMonth(user.getUsername(), date);
     }
+
+    @Override
+    public SalaryCalculatorDto getCalculatedSalaryInit() {
+        return iHoursAlphaApiService.getCalculatorInit();
+    }
 }

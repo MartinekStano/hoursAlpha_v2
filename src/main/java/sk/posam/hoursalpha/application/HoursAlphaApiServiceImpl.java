@@ -98,4 +98,9 @@ public class HoursAlphaApiServiceImpl implements IHoursAlphaApiService{
     public SalaryCalculatorDto getCalculatedSalaryWithParam(SalaryCalculatorDto salaryCalculatorDto) {
         return dayRecordService.getCalculatedSalaryWithParam(salaryCalculatorDto);
     }
+
+    @Override
+    public SalaryCalculatorDto getCalculatorInit() {
+        return dayRecordService.getCalculatorInit();
+    }
 }

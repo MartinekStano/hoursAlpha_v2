@@ -261,4 +261,9 @@ public class DayRecordServiceImpl implements IDayRecordService {
         }
         return salaryCalculatorDto;
     }
+
+    @Override
+    public SalaryCalculatorDto getCalculatorInit() {
+        return new SalaryCalculatorDto(0,0,0,0,0,0,0);
+    }
 }
