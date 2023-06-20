@@ -152,7 +152,9 @@ public class EmployeeServiceImpl implements IEmployeeService {
         saveIfNotEmpty(employeeDto.getFirstName(), employee, Employee::setFirstName);
         saveIfNotEmpty(employeeDto.getLastName(), employee, Employee::setLastName);
         saveIfNotEmpty(employeeDto.getPhoneNumber(), employee, Employee::setPhoneNumber);
-        saveIfNotEmpty(employeeDto.getEmail(), employee, Employee::setEmail);
+        saveIfNotEmpty(employeeDto.getAddress(), employee, Employee::setAddress);
+        saveIfNotEmpty(employeeDto.getZip(), employee, Employee::setZip);
+        saveIfNotEmpty(employeeDto.getSalary(), employee, Employee::setSalaryPerHour);
     }
 
     public <T> void saveIfNotEmpty(T toBeSet, Employee employee, BiConsumer<Employee, T> setter){
