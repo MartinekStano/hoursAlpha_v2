@@ -63,9 +63,9 @@ public class HoursAlphaApiController implements IHoursAlphaAPI {
     }
 
     @Override
-    public void resetPassword(String password, Authentication authentication) {
+    public void resetPassword(String newPassword, Authentication authentication) {
         UserDetails user = (UserDetails) authentication.getPrincipal();
-        iHoursAlphaApiService.resetPassword(password, user.getUsername());
+        iHoursAlphaApiService.resetPassword(newPassword, user.getUsername());
     }
 
     @Override
