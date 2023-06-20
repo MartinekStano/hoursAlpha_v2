@@ -24,9 +24,6 @@ public interface IHoursAlphaAPI {
     @PostMapping("/Auth/login")
     void login(@RequestBody LoginDto loginDto);
 
-    @PostMapping("/noAuth/logout")
-    void logout(HttpServletRequest request);
-
     @PostMapping("/noAuth/register")
     void register(@RequestBody EmployeeDto dto);
 
@@ -43,7 +40,7 @@ public interface IHoursAlphaAPI {
     void resetPasswordViaEmail(@RequestParam String password, @PathVariable String token);
 
     @PutMapping("/Auth/resetPassword")
-    void resetPassword(@RequestParam String password, Authentication authentication);
+    void resetPassword(@RequestParam String newPassword, Authentication authentication);
 
     @PutMapping("/Auth/updateEmployeeProfile")
     void updateEmployeeProfile(@RequestBody(required = false) EmployeeDto employeeDto, Authentication authentication);

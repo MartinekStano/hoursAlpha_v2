@@ -43,14 +43,6 @@ public class HoursAlphaApiController implements IHoursAlphaAPI {
     }
 
     @Override
-    public void logout(HttpServletRequest request) {
-        SecurityContextHolder.getContext().setAuthentication(null);
-        request.getSession().invalidate();
-//        return ResponseEntity.ok().build();
-
-    }
-
-    @Override
     public void register(EmployeeDto dto) {
         iHoursAlphaApiService.register(dto);
     }
