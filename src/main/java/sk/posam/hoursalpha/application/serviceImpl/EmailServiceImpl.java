@@ -24,7 +24,8 @@ public class EmailServiceImpl implements IEmailService {
 
     @Override
     public void sendVerificationEmailWithToken(Employee employee) throws MessagingException {
-        VerificationToken verificationToken = verificationTokenService.findByEmployee(employee).orElseThrow(VerificationTokenNotFoundException::new);
+        VerificationToken verificationToken = verificationTokenService.findByEmployee(employee)
+                .orElseThrow(() -> new VerificationTokenNotFoundException("Token was not found!"));
 
         String token = verificationToken.getToken();
 
@@ -59,10 +60,11 @@ public class EmailServiceImpl implements IEmailService {
 
     @Override
     public void sendResetPasswordViaEmail(Employee employee) throws MessagingException {
-        Optional<VerificationToken> verificationToken = verificationTokenService.findByEmployee(employee);
+        VerificationToken verificationToken = verificationTokenService.findByEmployee(employee)
+                .orElseThrow(() -> new VerificationTokenNotFoundException("Token was not found!"));
 
-        if (verificationToken.isPresent()) {
-            String token = verificationToken.get().getToken();
+
+            String token = verificationToken.getToken();
 
             String body = "<!DOCTYPE html>\n" +
                     "<html lang=\"en\">\n" +
@@ -90,7 +92,7 @@ public class EmailServiceImpl implements IEmailService {
             helper.setSubject("Reset password!");
             helper.setText(body, true);
             javaMailSender.send(message);
-        }
+
     }
 
     @Override
