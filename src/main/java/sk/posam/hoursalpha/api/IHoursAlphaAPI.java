@@ -40,7 +40,7 @@ public interface IHoursAlphaAPI {
     void resetPasswordViaEmail(@RequestParam String password, @PathVariable String token);
 
     @PutMapping("/Auth/resetPassword")
-    void resetPassword(@RequestParam String newPassword, Authentication authentication);
+    void resetPassword(@RequestParam String sendNewPassword, Authentication authentication);
 
     @PutMapping("/Auth/updateEmployeeProfile")
     void updateEmployeeProfile(@RequestBody(required = false) EmployeeDto employeeDto, Authentication authentication);
