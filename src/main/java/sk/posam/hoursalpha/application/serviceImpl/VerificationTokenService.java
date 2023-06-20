@@ -24,7 +24,7 @@ public class VerificationTokenService implements IVerificationTokenService {
         if(verificationToken.isPresent()){
             return verificationToken.get();
         }else{
-            throw new VerificationTokenNotFoundException();
+            throw new VerificationTokenNotFoundException("Verification token was not found!");
         }
     }
 

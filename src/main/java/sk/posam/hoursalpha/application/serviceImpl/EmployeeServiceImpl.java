@@ -89,7 +89,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
             Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
 
             if(verificationToken.getExpiryDate().before(currentTimestamp)){
-                throw new TokenExpiredException();
+                throw new TokenExpiredException("Token Expired!");
             }else{
                 employee.setStatusOfProfile(true);
                 iVerificationTokenService.deleteToken(token);
@@ -168,7 +168,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
         VerificationToken verificationToken = iVerificationTokenService.findByToken(token);
 
         if(verificationToken.getExpiryDate().before(new Timestamp(System.currentTimeMillis()))){
-            throw new TokenExpiredException();
+            throw new TokenExpiredException("Token Expired!");
         }else{
             if(encoder.matches(password, verificationToken.getEmployee().getPassword())){
                 throw new BadRequestException("The new password is same than previous!");
