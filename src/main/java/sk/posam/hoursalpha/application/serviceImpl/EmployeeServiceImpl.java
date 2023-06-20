@@ -57,9 +57,9 @@ public class EmployeeServiceImpl implements IEmployeeService {
                     encoder.encode(dto.getPassword()),
                     dto.getPhoneNumber(),
                     false,
-                    dto.getAddress(),
-                    dto.getZip(),
-                    dto.getSalary()
+                    "Undefined",
+                    "Undefined",
+                    0.0
             ));
 
             savedEmployee.ifPresent(u -> {
