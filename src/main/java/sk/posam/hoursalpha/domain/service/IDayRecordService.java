@@ -1,6 +1,7 @@
 package sk.posam.hoursalpha.domain.service;
 
 import sk.posam.hoursalpha.api.dto.DayRecordDto;
+import sk.posam.hoursalpha.api.dto.SalaryCalculatorDto;
 import sk.posam.hoursalpha.api.dto.SalaryDto;
 
 import java.util.List;
@@ -19,4 +20,6 @@ public interface IDayRecordService {
     SalaryDto getCalculateSalary(String email, String date);
 
     List<DayRecordDto> getAllDayRecordsCurrentMonth(String email, String date);
+
+    SalaryCalculatorDto getCalculatedSalaryWithParam(SalaryCalculatorDto salaryCalculatorDto);
 }

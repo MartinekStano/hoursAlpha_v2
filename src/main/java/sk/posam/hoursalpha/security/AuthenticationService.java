@@ -29,9 +29,6 @@ public class AuthenticationService {
             throw new BadCredentialsException("Bad credentials");
         }
 
-        System.out.println(passwordEncoderProvider.getEncoder().encode(password));
-        System.out.println(userDetails.getPassword());
-
         // create authentication token
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
                 userDetails, password, userDetails.getAuthorities());

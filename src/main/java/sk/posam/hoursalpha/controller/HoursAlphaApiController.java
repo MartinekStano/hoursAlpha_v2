@@ -7,10 +7,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.RestController;
 import sk.posam.hoursalpha.api.IHoursAlphaAPI;
-import sk.posam.hoursalpha.api.dto.DayRecordDto;
-import sk.posam.hoursalpha.api.dto.EmployeeDto;
-import sk.posam.hoursalpha.api.dto.LoginDto;
-import sk.posam.hoursalpha.api.dto.SalaryDto;
+import sk.posam.hoursalpha.api.dto.*;
 import sk.posam.hoursalpha.application.IHoursAlphaApiService;
 import sk.posam.hoursalpha.controller.exception.BadRequestException;
 import sk.posam.hoursalpha.security.AuthenticationService;
@@ -38,7 +35,7 @@ public class HoursAlphaApiController implements IHoursAlphaAPI {
             System.out.println("Login succesfull");
         } catch (BadCredentialsException ex) {
             System.out.println("Invalid username or password");
-            throw new BadRequestException();
+            throw new BadCredentialsException("Bad credentials");
         }
     }
 
@@ -86,9 +83,14 @@ public class HoursAlphaApiController implements IHoursAlphaAPI {
     }
 
     @Override
-    public void deteleAccount(Authentication authentication) {
+    public void deleteAccount(Authentication authentication) {
         UserDetails user = (UserDetails) authentication.getPrincipal();
         iHoursAlphaApiService.deleteAccount(user.getUsername());
+    }
+
+    @Override
+    public SalaryCalculatorDto getCalculatedSalaryWithParam(SalaryCalculatorDto salaryCalculatorDto) {
+        return iHoursAlphaApiService.getCalculatedSalaryWithParam(salaryCalculatorDto);
     }
 
     /*

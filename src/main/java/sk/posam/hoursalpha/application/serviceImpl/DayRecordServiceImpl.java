@@ -7,6 +7,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sk.posam.hoursalpha.api.dto.DayRecordDto;
+import sk.posam.hoursalpha.api.dto.SalaryCalculatorDto;
 import sk.posam.hoursalpha.api.dto.SalaryDto;
 import sk.posam.hoursalpha.application.assembler.DayRecordAssembler;
 import sk.posam.hoursalpha.controller.exception.BadRequestException;
@@ -55,16 +56,16 @@ public class DayRecordServiceImpl implements IDayRecordService {
                 .orElseThrow(() -> new UsernameNotFoundException("User not found!"));
 
         if(dayRecordRepository.findByDayRecordByDate(LocalDate.parse(dayRecordDto.date, formatter)).isPresent())
-            throw new DayRecordAlreadyExistException();
+            throw new DayRecordAlreadyExistException("DayRecord is already exist that date!");
 
         if(dayRecordDto.timeFrom.equals(dayRecordDto.timeTo))
-            throw new BadRequestException();
+            throw new BadRequestException("TimeFrom and TimeTo are incorrect!");
 
         double pause = MINUTES.between(LocalTime.parse("00:00"), LocalTime.parse(dayRecordDto.pause));
         double totalHours  = (MINUTES.between(LocalTime.parse(dayRecordDto.timeFrom), LocalTime.parse(dayRecordDto.timeTo)))-pause;
 
         if(totalHours < pause)
-            throw new BadRequestException();
+            throw new BadRequestException("Pause is bigger than total summary hours!");
 
         DayRecord newDayRecord = new DayRecord(
                 LocalDate.parse(dayRecordDto.date, formatter).getYear(),
@@ -208,7 +209,7 @@ public class DayRecordServiceImpl implements IDayRecordService {
                 } catch (MessagingException ex) {
                     ex.printStackTrace();
                     System.out.println(ex.getMessage());
-                    throw new BadRequestException();
+                    throw new BadRequestException("Incorrect email!");
                 }
             }
 
@@ -243,5 +244,21 @@ public class DayRecordServiceImpl implements IDayRecordService {
         });
     }
 
+    @Override
+    public SalaryCalculatorDto getCalculatedSalaryWithParam(SalaryCalculatorDto salaryCalculatorDto) {
 
+        salaryCalculatorDto.totalSalary = salaryCalculatorDto.totalHours * salaryCalculatorDto.salaryPerHour; //total salary
+        salaryCalculatorDto.superTotalSalary = (salaryCalculatorDto.totalSalary *0.352) + salaryCalculatorDto.totalSalary; //total super salary
+
+        if(salaryCalculatorDto.totalSalary >= 700){
+            salaryCalculatorDto.levies = salaryCalculatorDto.totalSalary*0.134; //levies
+            salaryCalculatorDto.tax = (salaryCalculatorDto.totalSalary - salaryCalculatorDto.levies) - 410.24;
+            salaryCalculatorDto.tax *= 0.19; //tax
+            salaryCalculatorDto.tax  = Math.round(salaryCalculatorDto.tax*100)/100;
+            salaryCalculatorDto.clearSalary =  Math.round(((salaryCalculatorDto.totalSalary - salaryCalculatorDto.levies - salaryCalculatorDto.tax)*100)/100);
+        }else {
+            salaryCalculatorDto.clearSalary = salaryCalculatorDto.totalSalary;
+        }
+        return salaryCalculatorDto;
+    }
 }

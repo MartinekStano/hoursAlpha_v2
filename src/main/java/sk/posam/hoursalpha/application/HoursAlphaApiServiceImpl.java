@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sk.posam.hoursalpha.api.dto.DayRecordDto;
 import sk.posam.hoursalpha.api.dto.EmployeeDto;
+import sk.posam.hoursalpha.api.dto.SalaryCalculatorDto;
 import sk.posam.hoursalpha.api.dto.SalaryDto;
 import sk.posam.hoursalpha.domain.service.IDayRecordService;
 import sk.posam.hoursalpha.domain.service.IEmployeeService;
@@ -91,5 +92,10 @@ public class HoursAlphaApiServiceImpl implements IHoursAlphaApiService{
     @Override
     public List<DayRecordDto> getAllDayRecordsCurrentMonth(String email, String date) {
         return dayRecordService.getAllDayRecordsCurrentMonth(email, date);
+    }
+
+    @Override
+    public SalaryCalculatorDto getCalculatedSalaryWithParam(SalaryCalculatorDto salaryCalculatorDto) {
+        return dayRecordService.getCalculatedSalaryWithParam(salaryCalculatorDto);
     }
 }

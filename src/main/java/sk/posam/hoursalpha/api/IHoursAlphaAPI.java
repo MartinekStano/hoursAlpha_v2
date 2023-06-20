@@ -3,10 +3,7 @@ package sk.posam.hoursalpha.api;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
-import sk.posam.hoursalpha.api.dto.DayRecordDto;
-import sk.posam.hoursalpha.api.dto.EmployeeDto;
-import sk.posam.hoursalpha.api.dto.LoginDto;
-import sk.posam.hoursalpha.api.dto.SalaryDto;
+import sk.posam.hoursalpha.api.dto.*;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
@@ -49,7 +46,7 @@ public interface IHoursAlphaAPI {
     EmployeeDto getEmployeeDetails(Authentication authentication);
 
     @DeleteMapping("/Auth/deleteAccount")
-    void deteleAccount(Authentication authentication);
+    void deleteAccount(Authentication authentication);
 
     /*
     DAY RECORD PART
@@ -70,4 +67,6 @@ public interface IHoursAlphaAPI {
     @PostMapping("/Auth/calculatorSalary/{date}")
     SalaryDto getCalculateSalary(Authentication authentication, @PathVariable String date);
 
+    @PostMapping("/Auth/salaryCalculatorWithParam")
+    SalaryCalculatorDto getCalculatedSalaryWithParam(@RequestBody(required = false) SalaryCalculatorDto salaryCalculatorDto);
 }

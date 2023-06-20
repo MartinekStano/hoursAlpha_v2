@@ -28,7 +28,7 @@ public class EmployeeDetailsService implements UserDetailsService {
         if(employee.isPresent()){
 
             if(!employee.get().isStatusOfProfile()) //TO DO
-                throw new NotActivatedAccountViaEmailException();
+                throw new NotActivatedAccountViaEmailException("Account is not verify with email!");
 
             return new org.springframework.security.core.userdetails.User(
                     employee.get().getEmail(),

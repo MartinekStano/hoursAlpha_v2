@@ -48,7 +48,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
     public void register(EmployeeDto dto) {
 
         if(employeeRepository.findEmployeeByEmail(dto.getEmail()).isPresent()){
-            throw new EmailIsUnavailableException();
+            throw new EmailIsUnavailableException("Email is in use!");
         }else{
             Optional<Employee> savedEmployee = employeeRepository.saveNewEmployee(new Employee(
                     dto.getFirstName(),
@@ -136,7 +136,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
                 .orElseThrow( ()-> new UsernameNotFoundException("User was not found!"));
 
             if(encoder.matches(password, employee.getPassword())){
-                throw new BadRequestException();
+                throw new BadRequestException("The new password is same than previous!");
             }else{
                 employee.setPassword(encoder.encode(password));
             }
@@ -171,7 +171,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
             throw new TokenExpiredException();
         }else{
             if(encoder.matches(password, verificationToken.getEmployee().getPassword())){
-                throw new BadRequestException();
+                throw new BadRequestException("The new password is same than previous!");
             }else {
                 verificationToken.getEmployee().setPassword(encoder.encode(password));
             }
