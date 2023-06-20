@@ -61,6 +61,9 @@ public interface IHoursAlphaAPI {
     @GetMapping("/Auth/getAllDayRecords")
     List<DayRecordDto> getAllDayRecords(Authentication authentication);
 
+    @PostMapping("/Auth/getAllDayRecordsCurrentMonth")
+    List<DayRecordDto> getAllDayRecordsCurrentMonth(@RequestParam String date, Authentication authentication);
+
     @PutMapping("/Auth/editDayRecords")
     void editDayRecord(@RequestBody(required = false) DayRecordDto dayRecordDto, Authentication authentication);
 

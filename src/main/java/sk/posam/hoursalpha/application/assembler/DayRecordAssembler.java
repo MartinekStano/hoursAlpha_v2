@@ -24,7 +24,7 @@ public class DayRecordAssembler {
         DayRecordDto dto = new DayRecordDto();
 
         dto.year = dayRecord.getYear();
-        dto.month = dayRecord.getMonth();
+        dto.month = dayRecord.getDate().getMonth().toString();
         dto.date = dayRecord.getDate().format(DateTimeFormatter.ofPattern("dd-MM-uuuu"));
         dto.place = dayRecord.getPlace();
         dto.timeFrom = dayRecord.getTimeFrom().toString();
@@ -38,7 +38,7 @@ public class DayRecordAssembler {
         DayRecordDto dto = new DayRecordDto();
 
         dto.year = dayRecord.getYear();
-        dto.month = dayRecord.getMonth();
+        dto.month = dayRecord.getDate().getMonth().toString();
         dto.date = dayRecord.getDate().format(DateTimeFormatter.ofPattern("dd-MM-uuuu"));
         dto.place = dayRecord.getPlace();
         dto.timeFrom = dayRecord.getTimeFrom().toString();
@@ -54,8 +54,8 @@ public class DayRecordAssembler {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern( "dd-MM-uuuu" );
 
         return new DayRecord(
-                dto.year,
-                dto.month,
+                LocalDate.parse(dto.date, formatter).getYear(),
+                LocalDate.parse(dto.date, formatter).getMonth().getValue(),
                 LocalDate.parse(dto.date, formatter),
                 dto.place,
                 LocalTime.parse(dto.timeFrom),

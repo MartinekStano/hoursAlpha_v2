@@ -118,4 +118,10 @@ public class HoursAlphaApiController implements IHoursAlphaAPI {
         UserDetails user = (UserDetails) authentication.getPrincipal();
         return iHoursAlphaApiService.getCalculateSalary(user.getUsername(), month, year);
     }
+
+    @Override
+    public List<DayRecordDto> getAllDayRecordsCurrentMonth(String date, Authentication authentication) {
+        UserDetails user = (UserDetails) authentication.getPrincipal();
+        return iHoursAlphaApiService.getAllDayRecordsCurrentMonth(user.getUsername(), date);
+    }
 }

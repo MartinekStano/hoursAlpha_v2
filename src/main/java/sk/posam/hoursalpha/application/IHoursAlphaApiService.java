@@ -28,4 +28,6 @@ public interface IHoursAlphaApiService {
     SalaryDto getCalculateSalary(String email, int month, int year);
 
     void deleteAccount(String email);
+
+    List<DayRecordDto> getAllDayRecordsCurrentMonth(String email, String date);
 }

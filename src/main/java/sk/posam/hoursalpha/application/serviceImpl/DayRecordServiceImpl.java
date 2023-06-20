@@ -169,6 +169,30 @@ public class DayRecordServiceImpl implements IDayRecordService {
         }
     }
 
+
+    @Override
+    public List<DayRecordDto> getAllDayRecordsCurrentMonth(String email, String date) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-uuuu");
+
+        Employee employee = employeeRepository.findEmployeeByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found!"));
+
+        List<DayRecordDto> listOfAdvancedDayRecords = new ArrayList<>();
+
+        dayRecordRepository.findByEmployeeAndMonthAndYear(employee,LocalDate.parse(date, formatter).getMonth().getValue(), LocalDate.parse(date, formatter).getYear())
+                        .forEach(r -> {
+                            double pause = MINUTES.between(LocalTime.parse("00:00"), r.getPause());
+                            double totalHours  = (MINUTES.between(r.getTimeFrom(), r.getTimeTo()))-pause;
+                            totalHours /= 60;
+
+                            double totalSalary = totalHours*employee.getSalaryPerHour();
+
+
+                            listOfAdvancedDayRecords.add(dayRecordAssembler.toAdvancedDto(r,totalSalary,totalHours ));
+                        });
+        return listOfAdvancedDayRecords;
+    }
+
     @Override
     public void sendNotificationIfDayRecordDoesntExist() {
         List<Employee> listOfEmployee = employeeRepository.getAllEmployee();
@@ -217,4 +241,6 @@ public class DayRecordServiceImpl implements IDayRecordService {
 
         });
     }
+
+
 }

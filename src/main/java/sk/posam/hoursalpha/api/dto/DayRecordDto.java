@@ -6,7 +6,7 @@ public class DayRecordDto {
     public String place;
 
     public Integer year;
-    public Integer month;
+    public String month;
 
     public String timeFrom;
     public String timeTo;
