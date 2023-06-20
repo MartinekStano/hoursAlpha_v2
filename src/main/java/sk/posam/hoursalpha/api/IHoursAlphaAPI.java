@@ -42,7 +42,7 @@ public interface IHoursAlphaAPI {
     @PutMapping("/noAuth/resetPassword/{token}")
     void resetPasswordViaEmail(@RequestParam String password, @PathVariable String token);
 
-    @PostMapping("/Auth/resetPassword")
+    @PutMapping("/Auth/resetPassword")
     void resetPassword(@RequestParam String password, Authentication authentication);
 
     @PutMapping("/Auth/updateEmployeeProfile")
