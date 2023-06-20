@@ -16,7 +16,7 @@ public interface IDayRecordService {
 
     void editDayRecord(String email, DayRecordDto dayRecordDto);
 
-    SalaryDto getCalculateSalary(String email, int month, int year);
+    SalaryDto getCalculateSalary(String email, String date);
 
     List<DayRecordDto> getAllDayRecordsCurrentMonth(String email, String date);
 }

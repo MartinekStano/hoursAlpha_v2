@@ -125,14 +125,15 @@ public class DayRecordServiceImpl implements IDayRecordService {
     }
 
     @Override
-    public SalaryDto getCalculateSalary(String email, int month, int year) {
+    public SalaryDto getCalculateSalary(String email, String date) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-uuuu");
 
         Employee employee = employeeRepository.findEmployeeByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("User was not found!"));
 
-        List<DayRecord> dayRecords = dayRecordRepository.findByEmployeeAndMonthAndYear(employee, month, year);
+        List<DayRecord> dayRecords = dayRecordRepository.findByEmployeeAndMonthAndYear(employee, LocalDate.parse(date, formatter).getMonth().getValue(), LocalDate.parse(date, formatter).getYear());
 
-        SalaryDto salaryDto = new SalaryDto(0,0,0);
+        SalaryDto salaryDto = new SalaryDto(0,0,0, LocalDate.parse(date, formatter).getMonth().toString());
 
         salaryDto.totalHours = calculateTotalHours(dayRecords);
         salaryDto.totalSalary = salaryDto.totalHours*employee.getSalaryPerHour();

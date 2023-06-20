@@ -84,8 +84,8 @@ public class HoursAlphaApiServiceImpl implements IHoursAlphaApiService{
     }
 
     @Override
-    public SalaryDto getCalculateSalary(String email, int month, int year) {
-        return dayRecordService.getCalculateSalary(email, month, year);
+    public SalaryDto getCalculateSalary(String email, String date) {
+        return dayRecordService.getCalculateSalary(email, date);
     }
 
     @Override
