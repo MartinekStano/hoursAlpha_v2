@@ -164,7 +164,8 @@ public class DayRecordServiceImpl implements IDayRecordService {
             double levies = salaryDto.totalSalary*0.134;
             double tax = (salaryDto.totalSalary - levies) - 410.24;
             tax *= 0.19;
-            return salaryDto.totalSalary - levies - tax;
+            double result = salaryDto.totalSalary - levies - tax;
+            return Math.round(result*100)/100;
         }else {
             return salaryDto.totalSalary;
         }
