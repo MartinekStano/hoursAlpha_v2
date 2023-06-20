@@ -111,7 +111,7 @@ public class DayRecordServiceImpl implements IDayRecordService {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-uuuu");
 
         DayRecord dayRecord = dayRecordRepository.findByDayRecordByDate(LocalDate.parse(dayRecordDto.date, formatter))
-                .orElseThrow(BadRequestException::new);
+                .orElseThrow(() -> new BadRequestException("DayRecord was not found!"));
 
         saveIfNotEmpty(dayRecordDto.place, dayRecord, DayRecord::setPlace);
         saveIfNotEmpty(LocalTime.parse(dayRecordDto.timeTo), dayRecord, DayRecord::setTimeTo);
