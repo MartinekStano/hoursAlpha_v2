@@ -81,7 +81,7 @@ public class EmailServiceImpl implements IEmailService {
                     "</body>\n" +
                     "</html>";
 
-            body = body.replace("[[URL]]", "http://localhost:4200" + "/resetPassword/" + token);
+            body = body.replace("[[URL]]", "http://localhost:4200" + "/forgotPasswordReset/" + token);
 
             MimeMessage message = javaMailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
