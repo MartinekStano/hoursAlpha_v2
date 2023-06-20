@@ -136,7 +136,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
                 .orElseThrow( ()-> new UsernameNotFoundException("User was not found!"));
 
             if(encoder.matches(password, employee.getPassword())){
-                throw new BadRequestException();
+                throw new UsernameNotFoundException("");
             }else{
                 employee.setPassword(encoder.encode(password));
             }
