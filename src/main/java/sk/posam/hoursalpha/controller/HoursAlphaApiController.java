@@ -85,6 +85,12 @@ public class HoursAlphaApiController implements IHoursAlphaAPI {
         return iHoursAlphaApiService.getEmployeeDetails(user.getUsername());
     }
 
+    @Override
+    public void deteleAccount(Authentication authentication) {
+        UserDetails user = (UserDetails) authentication.getPrincipal();
+        iHoursAlphaApiService.deleteAccount(user.getUsername());
+    }
+
     /*
     DAY RECORD PART
      */

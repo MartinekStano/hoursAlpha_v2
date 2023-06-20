@@ -36,7 +36,7 @@ public class DayRecord {
     @Column(name = "pause")
     private LocalTime pause;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "employee_id")
     private Employee employee;
 

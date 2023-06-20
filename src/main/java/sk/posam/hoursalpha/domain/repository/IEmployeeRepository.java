@@ -10,4 +10,6 @@ public interface IEmployeeRepository {
     Optional<Employee> saveNewEmployee(Employee employee);
 
     List<Employee> getAllEmployee();
+
+    void deleteAccount(Employee employee);
 }

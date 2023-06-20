@@ -17,4 +17,6 @@ public interface IEmployeeService {
     void updateEmployeeProfile(EmployeeDto employeeDto, String email);
 
     EmployeeDto getEmployeeDetails(String email);
+
+    void deleteAccount(String email);
 }

@@ -28,4 +28,9 @@ public class EmployeeRepositoryImpl implements IEmployeeRepository {
     public List<Employee> getAllEmployee() {
         return repository.findAll();
     }
+
+    @Override
+    public void deleteAccount(Employee employee) {
+        repository.delete(employee);
+    }
 }

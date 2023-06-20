@@ -48,7 +48,7 @@ public class Employee {
     @Column(name = "salary_per_hour")
     private double salaryPerHour;
 
-    @OneToMany(mappedBy = "employee")
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.REMOVE)
     @JsonIgnore
     private List<DayRecord> listOfYearRecord;
 

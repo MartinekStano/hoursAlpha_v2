@@ -26,4 +26,6 @@ public interface IHoursAlphaApiService {
     void editDayRecord(String email, DayRecordDto dayRecordDto);
 
     SalaryDto getCalculateSalary(String email, int month, int year);
+
+    void deleteAccount(String email);
 }

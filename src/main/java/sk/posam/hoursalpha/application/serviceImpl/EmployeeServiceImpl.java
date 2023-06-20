@@ -186,4 +186,12 @@ public class EmployeeServiceImpl implements IEmployeeService {
                 .orElseThrow(() -> new UsernameNotFoundException("User was not found!"));
         return assembler.toDto(employee);
     }
+
+    @Override
+    public void deleteAccount(String email) {
+        Employee employee = employeeRepository.findEmployeeByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("User was not found!"));
+
+        employeeRepository.deleteAccount(employee);
+    }
 }

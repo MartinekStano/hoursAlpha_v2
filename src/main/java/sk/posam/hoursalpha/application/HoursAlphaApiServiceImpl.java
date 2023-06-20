@@ -59,6 +59,11 @@ public class HoursAlphaApiServiceImpl implements IHoursAlphaApiService{
        return employeeService.getEmployeeDetails(email);
     }
 
+    @Override
+    public void deleteAccount(String email) {
+        employeeService.deleteAccount(email);
+    }
+
     /*
     DAY RECORD PART
      */

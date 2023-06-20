@@ -48,6 +48,9 @@ public interface IHoursAlphaAPI {
     @GetMapping("/Auth/employeeDetails")
     EmployeeDto getEmployeeDetails(Authentication authentication);
 
+    @DeleteMapping("/Auth/deleteAccount")
+    void deteleAccount(Authentication authentication);
+
     /*
     DAY RECORD PART
      */
