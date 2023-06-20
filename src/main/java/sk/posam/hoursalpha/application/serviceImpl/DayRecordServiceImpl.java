@@ -251,10 +251,9 @@ public class DayRecordServiceImpl implements IDayRecordService {
         salaryCalculatorDto.superTotalSalary = (salaryCalculatorDto.totalSalary *0.352) + salaryCalculatorDto.totalSalary; //total super salary
 
         if(salaryCalculatorDto.totalSalary >= 700){
-            salaryCalculatorDto.levies = salaryCalculatorDto.totalSalary*0.134; //levies
-            salaryCalculatorDto.tax = (salaryCalculatorDto.totalSalary - salaryCalculatorDto.levies) - 410.24;
-            salaryCalculatorDto.tax *= 0.19; //tax
-            salaryCalculatorDto.tax  = Math.round(salaryCalculatorDto.tax*100)/100;
+            salaryCalculatorDto.levies = Math.round((salaryCalculatorDto.totalSalary * 0.134) * 100) / 100.0;
+            salaryCalculatorDto.tax = Math.round((((salaryCalculatorDto.totalSalary - salaryCalculatorDto.levies) - 410.24) * 0.19) * 100) / 100.0;
+
             salaryCalculatorDto.clearSalary =  Math.round(((salaryCalculatorDto.totalSalary - salaryCalculatorDto.levies - salaryCalculatorDto.tax)*100)/100);
         }else {
             salaryCalculatorDto.clearSalary = salaryCalculatorDto.totalSalary;
